@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class FileService {
 
-    @Value("${extern.resoures.path}")
+    @Value("${extern.resources.path}")
     private String path;
 
     @Autowired
@@ -32,7 +32,7 @@ public class FileService {
 
     public List<FileInfoDto> getAllFileName() {
         List<FileEntity> fileEntityList = fileRepository.findAll();
-        return fileEntityList.stream().map(file -> new FileInfoDto(file.getName(), file.getCreatedUser())).collect(Collectors.toList());
+        return fileEntityList.stream().map(this::convertFileEntityToFileInfoDto).toList();
     }
 
     public FileEntity uploadFile(FileUploadDto fileUploadDTO, String createdUser) throws IOException {
@@ -91,5 +91,9 @@ public class FileService {
         int index = filename.indexOf('.');
         String extension = filename.substring(index+1).toUpperCase();
         return path + File.separator + File.separator+ filename;
+    }
+
+    private FileInfoDto convertFileEntityToFileInfoDto(FileEntity file) {
+        return new FileInfoDto(file.getId(), file.getName(), file.getCreatedUser(), file.getCreatedTime());
     }
 }
