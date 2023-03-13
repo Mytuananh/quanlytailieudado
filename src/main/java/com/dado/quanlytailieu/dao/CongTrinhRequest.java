@@ -1,24 +1,19 @@
 package com.dado.quanlytailieu.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
-@AllArgsConstructor
-@Builder
-public class FileInfoDto {
-    private Long id;
+public class CongTrinhRequest {
     private String name;
-    private String fileName;
     private String code;
     private String tenCongTrinh;
     private String address;
     private String ownUser;
+    private MultipartFile file;
     private String city;
     private String country;
     private String postCode;
     private String description;
+    private String createdUser;
 }

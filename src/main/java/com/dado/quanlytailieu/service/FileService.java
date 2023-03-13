@@ -1,5 +1,6 @@
 package com.dado.quanlytailieu.service;
 
+import com.dado.quanlytailieu.dao.CongTrinhRequest;
 import com.dado.quanlytailieu.dao.FileInfoDto;
 import com.dado.quanlytailieu.dao.FileUploadDto;
 import com.dado.quanlytailieu.model.FileEntity;
@@ -38,33 +39,9 @@ public class FileService {
 
     public FileEntity uploadFile(FileUploadDto fileUploadDTO, String createdUser) throws IOException {
         MultipartFile file = fileUploadDTO.getFile();
-        if(file.isEmpty())
-        {
-            throw  new RuntimeException("please provide a valide file");
-        }
-
-        InputStream in = null;
-        BufferedOutputStream out = null;
-        try {
-            in = new BufferedInputStream(file.getInputStream());
-            byte[] b = in.readAllBytes();
-            String fullPath = decideFullPath(file);
-            out = new BufferedOutputStream(new FileOutputStream(fullPath));
-            out.write(b);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        String filename = StringUtils.cleanPath(fileUploadDTO.getFile().getOriginalFilename());
+        String filename = saveFile(file);
         FileEntity fileEntity = new FileEntity();
-        fileEntity.setName(filename);
+        fileEntity.setFileName(filename);
         fileEntity.setCreatedUser(createdUser);
         fileEntity = fileRepository.save(fileEntity);
         return fileEntity;
@@ -74,7 +51,7 @@ public class FileService {
 
         FileEntity file = fileRepository.findById(fileId).orElseThrow(FileNotFoundException::new);
 
-        String filePath = path + "/" + file.getName();
+        String filePath = path + "/" + file.getFileName();
 
         Resource resource = null;
         resource = resourceLoader.getResource("file:" + filePath);
@@ -101,11 +78,45 @@ public class FileService {
     private FileInfoDto convertFileEntityToFileInfoDto(FileEntity file) {
         return FileInfoDto.builder()
                 .id(file.getId())
-                .fileName(file.getName())
+                .name(file.getName())
+                .fileName(file.getFileName())
                 .code(file.getCode())
                 .tenCongTrinh(file.getTenCongTrinh())
-                .createdUser(file.getCreatedUser())
-                .createdTime(file.getCreatedTime())
+                .address(file.getAddress())
+                .ownUser(file.getOwnUser())
+                .city(file.getCity())
+                .country(file.getCountry())
+                .postCode(file.getPostCode())
+                .description(file.getDescription())
                 .build();
     }
+
+    public String saveFile(MultipartFile file) {
+        if(file.isEmpty())
+        {
+            throw  new RuntimeException("please provide a valide file");
+        }
+
+        InputStream in = null;
+        BufferedOutputStream out = null;
+        try {
+            in = new BufferedInputStream(file.getInputStream());
+            byte[] b = in.readAllBytes();
+            String fullPath = decideFullPath(file);
+            out = new BufferedOutputStream(new FileOutputStream(fullPath));
+            out.write(b);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return StringUtils.cleanPath(file.getOriginalFilename());
+    }
+
 }

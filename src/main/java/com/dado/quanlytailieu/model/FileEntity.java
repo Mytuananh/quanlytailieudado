@@ -16,14 +16,16 @@ public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
-    private String url;
-
+    private String fileName;
     private String code;
-
     private String tenCongTrinh;
+    private String address;
+    private String ownUser;
+    private String city;
+    private String country;
+    private String postCode;
+    private String description;
 
     @OneToMany(mappedBy = "fileEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Image> imageList;
