@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class FileService {
     }
 
     public FileEntity uploadFile(FileUploadDto fileUploadDTO, String createdUser) throws IOException {
-        MultipartFile file = fileUploadDTO.getFile();;
+        MultipartFile file = fileUploadDTO.getFile();
         if(file.isEmpty())
         {
             throw  new RuntimeException("please provide a valide file");
@@ -86,6 +87,10 @@ public class FileService {
                 .body(resource);
     }
 
+    public FileInfoDto getFileInfo(Long fileId) throws FileNotFoundException {
+        return convertFileEntityToFileInfoDto(fileRepository.findById(fileId).orElseThrow(FileNotFoundException::new));
+    }
+
     private String decideFullPath(MultipartFile file) {
         String filename = file.getOriginalFilename();
         int index = filename.indexOf('.');
@@ -94,6 +99,13 @@ public class FileService {
     }
 
     private FileInfoDto convertFileEntityToFileInfoDto(FileEntity file) {
-        return new FileInfoDto(file.getId(), file.getName(), file.getCreatedUser(), file.getCreatedTime());
+        return FileInfoDto.builder()
+                .id(file.getId())
+                .fileName(file.getName())
+                .code(file.getCode())
+                .tenCongTrinh(file.getTenCongTrinh())
+                .createdUser(file.getCreatedUser())
+                .createdTime(file.getCreatedTime())
+                .build();
     }
 }

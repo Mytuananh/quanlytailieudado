@@ -21,6 +21,10 @@ public class FileEntity {
 
     private String url;
 
+    private String code;
+
+    private String tenCongTrinh;
+
     @OneToMany(mappedBy = "fileEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Image> imageList;
 

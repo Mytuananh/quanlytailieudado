@@ -45,4 +45,9 @@ public class FileController {
         return fileService.downloadFile(fileId);
     }
 
+    @GetMapping("/info/{fileId}")
+    public ResponseEntity<FileInfoDto> getFileInfo(@PathVariable Long fileId) throws FileNotFoundException {
+        return ResponseEntity.ok(fileService.getFileInfo(fileId));
+    }
+
 }
