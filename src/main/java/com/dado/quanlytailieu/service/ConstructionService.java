@@ -4,7 +4,6 @@ import com.dado.quanlytailieu.command.ConstructionCommand;
 import com.dado.quanlytailieu.dto.ConstructionDto;
 import com.dado.quanlytailieu.enums.ConstructionType;
 import com.dado.quanlytailieu.model.Construction;
-import com.dado.quanlytailieu.model.Image;
 import com.dado.quanlytailieu.repository.ConstructionRepository;
 import com.dado.quanlytailieu.repository.ContructionDocumentRepository;
 import com.dado.quanlytailieu.repository.ImageRepository;
@@ -15,7 +14,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class ConstructionService {
@@ -40,6 +38,8 @@ public class ConstructionService {
         construction.setName(command.getName());
         construction.setCode(command.getCode());
         construction.setLocation(command.getLocation());
+        construction.setAddress(command.getAddress());
+        construction.setArea(command.getArea());
         construction.setType(ConstructionType.valueOf(command.getType()));
         var cons = constructionRepository.save(construction);
         imageService.storeImageForConstruction(command.getImages(),cons);
@@ -59,7 +59,6 @@ public class ConstructionService {
         dto.setLocation(construction.getLocation());
         dto.setType(construction.getType());
         dto.setDocs(docs);
-        dto.setImages(imageService.getImagePath(id));
         return dto;
     }
 
@@ -74,10 +73,15 @@ public class ConstructionService {
             constructionDto.setCode(construction.getCode());
             constructionDto.setName(construction.getName());
             constructionDto.setType(construction.getType());
-            constructionDto.setImages(imageService.getImagePath(String.valueOf(construction.getId())));
+            constructionDto.setAddress(construction.getAddress());
+            constructionDto.setArea(construction.getArea());
             constructionDto.setDocs(docs);
             constructionDtos.add(constructionDto);
         }
         return constructionDtos;
+    }
+
+    public List<Construction> getConstructionByType(ConstructionType type) {
+        return constructionRepository.getConstructionsByType(type);
     }
 }

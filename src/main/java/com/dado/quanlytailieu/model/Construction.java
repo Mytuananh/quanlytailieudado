@@ -24,8 +24,10 @@ public class Construction {
 
     String name;
     String code;
-    String location;
+    String location;    // vi tri
     ConstructionType type;
+    String address;     // dia diem
+    String area;
 
     @JsonIgnore
     @OneToMany(mappedBy = "construction",cascade = CascadeType.ALL)

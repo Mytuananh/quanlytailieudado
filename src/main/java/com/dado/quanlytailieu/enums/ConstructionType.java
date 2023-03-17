@@ -1,16 +1,19 @@
 package com.dado.quanlytailieu.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ConstructionType {
 
-    CONG("Cống"),
-    KENH_DAT("Kênh đất"),
-    TRAM_BOM("Trạm bơm"),
-    KENH_XAY("Kênh xây"),
-    KENH_TUOI("Kênh tưới"),
+    CONG("cong"),
+    KENH_DAT("kenh_dat"),
+    TRAM_BOM("tram_bom"),
+    KENH_XAY("kenh_xay"),
+    KENH_TUOI("kenh_tuoi"),
     ;
 
-    private String type;
-    ConstructionType(String type) {
-        this.type = type;
+    private final String value;
+    ConstructionType(String value) {
+        this.value = value;
     }
 }

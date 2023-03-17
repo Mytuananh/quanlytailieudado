@@ -15,10 +15,13 @@ import org.springframework.core.io.Resource;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConstructionDto {
+    Long id;
     String name;
     String code;
     String location;
     ConstructionType type;
+    String area;
+    String address;
     List<Resource> images;
     List<ConstructionDocumentDto> docs;
 }

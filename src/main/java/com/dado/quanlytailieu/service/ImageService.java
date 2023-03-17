@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.dado.quanlytailieu.model.Construction;
 import com.dado.quanlytailieu.model.Image;
@@ -79,20 +80,9 @@ public class ImageService {
         return imageResource;
     }
 
-    public List<Resource> getImagePath(String id) throws MalformedURLException {
+    public List<String> getListImageName(String id) throws MalformedURLException {
         var images = imageRepository.getImageByConstructionId(id);
-        List<Resource> resources = new ArrayList<>();
-        List<Path> paths = new ArrayList<>();
-        for (Image image:images) {
-            Path imagePath = Paths.get("uploads/files/" + image.getFileName());
-            paths.add(imagePath);
-        }
-        File folder = new File("uploads/files");
-        for (Path path:paths) {
-            Resource imageResource = new UrlResource(path.toUri());
-            resources.add(imageResource);
-        }
-        return resources;
+        return images.stream().map(Image::getFileName).collect(Collectors.toList());
     }
 
     public List<Image> storeImageForConstruction(MultipartFile[] files, Construction construction) throws Exception {
