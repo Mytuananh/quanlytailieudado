@@ -27,13 +27,13 @@ public class ConstructionController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createConstruction(@ModelAttribute ConstructionCommand command
+    public ResponseEntity<?> createConstruction(@RequestBody ConstructionCommand command
     ) throws Exception {
         return ResponseEntity.ok().body(constructionService.createConstruction(command));
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> updateConstruction(@ModelAttribute ConstructionCommand command
+    public ResponseEntity<?> updateConstruction(@RequestBody ConstructionCommand command
     ) throws Exception {
         return ResponseEntity.ok().body(constructionService.createConstruction(command));
     }

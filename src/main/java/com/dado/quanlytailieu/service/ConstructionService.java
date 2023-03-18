@@ -42,7 +42,6 @@ public class ConstructionService {
         construction.setArea(command.getArea());
         construction.setType(ConstructionType.valueOf(command.getType()));
         var cons = constructionRepository.save(construction);
-        imageService.storeImageForConstruction(command.getImages(),cons);
         return cons;
     }
 
