@@ -32,10 +32,10 @@ public class ConstructionController {
         return ResponseEntity.ok().body(constructionService.createConstruction(command));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?> updateConstruction(@RequestBody ConstructionCommand command
+    @PostMapping("/update/{constructionId}")
+    public ResponseEntity<?> updateConstruction(@PathVariable Long constructionId, @RequestBody ConstructionCommand command
     ) throws Exception {
-        return ResponseEntity.ok().body(constructionService.createConstruction(command));
+        return ResponseEntity.ok().body(constructionService.updateConstruction(constructionId, command));
     }
 
     @GetMapping("/all")

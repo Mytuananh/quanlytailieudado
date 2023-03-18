@@ -45,6 +45,17 @@ public class ConstructionService {
         return cons;
     }
 
+    public Construction updateConstruction(Long constructionId, ConstructionCommand command) throws Exception {
+        var construction = constructionRepository.findById(constructionId).get();
+        construction.setName(command.getName());
+        construction.setCode(command.getCode());
+        construction.setLocation(command.getLocation());
+        construction.setAddress(command.getAddress());
+        construction.setArea(command.getArea());
+        construction.setType(ConstructionType.valueOf(command.getType()));
+        return constructionRepository.save(construction);
+    }
+
 
     public ConstructionDto findConstructionById(String id) throws MalformedURLException {
         var construction = constructionRepository.findById(Long.valueOf(id)).orElse(null);
@@ -81,6 +92,6 @@ public class ConstructionService {
     }
 
     public List<Construction> getConstructionByType(ConstructionType type) {
-        return constructionRepository.getConstructionsByType(type);
+        return constructionRepository.getConstructionsByTypeOrderById(type);
     }
 }

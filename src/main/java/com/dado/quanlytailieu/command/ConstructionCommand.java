@@ -17,6 +17,4 @@ public class ConstructionCommand {
     private String type;
     private String address;
     private String area;
-
-    private MultipartFile[] images;
 }

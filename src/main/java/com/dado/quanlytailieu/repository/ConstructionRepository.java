@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ConstructionRepository extends JpaRepository<Construction, Long> {
-    List<Construction> getConstructionsByType(ConstructionType type);
+    List<Construction> getConstructionsByTypeOrderById(ConstructionType type);
 }
