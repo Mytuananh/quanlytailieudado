@@ -1,5 +1,5 @@
 package com.dado.quanlytailieu.repository;
-import com.dado.quanlytailieu.model.User;
+import com.dado.quanlytailieu.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

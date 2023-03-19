@@ -1,13 +1,13 @@
-package com.dado.quanlytailieu.model;
+package com.dado.quanlytailieu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -23,12 +23,9 @@ public class FileEntity {
 
     String type;
 
-    @ManyToOne
-    @JoinColumn(name = "ho_so_cong_trinh_id")
-    HoSoCongTrinh hoSoCongTrinh;
-
     String createdUser;
 
-    LocalDateTime createdTime;
+    @CreatedDate
+    LocalDateTime createdTime = LocalDateTime.now();
 
 }

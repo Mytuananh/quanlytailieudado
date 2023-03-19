@@ -2,7 +2,7 @@ package com.dado.quanlytailieu.service;
 
 import com.dado.quanlytailieu.dao.FileInfoDto;
 import com.dado.quanlytailieu.dao.FileUploadDto;
-import com.dado.quanlytailieu.model.FileEntity;
+import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +40,7 @@ public class FileService {
         FileEntity fileEntity = new FileEntity();
         fileEntity.setFileName(filename);
         fileEntity.setCreatedUser(createdUser);
+        fileEntity.setType(file.getContentType());
         fileEntity = fileRepository.save(fileEntity);
         return fileEntity;
     }

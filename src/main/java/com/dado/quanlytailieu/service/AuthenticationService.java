@@ -2,8 +2,8 @@ package com.dado.quanlytailieu.service;
 import com.dado.quanlytailieu.dao.AuthenticationRequest;
 import com.dado.quanlytailieu.dao.AuthenticationResponse;
 import com.dado.quanlytailieu.dao.RegisterRequest;
-import com.dado.quanlytailieu.model.Role;
-import com.dado.quanlytailieu.model.User;
+import com.dado.quanlytailieu.entity.Role;
+import com.dado.quanlytailieu.entity.User;
 import com.dado.quanlytailieu.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +23,6 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .username(request.getUsername())
-                .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)

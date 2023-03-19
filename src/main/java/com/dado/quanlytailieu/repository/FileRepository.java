@@ -1,6 +1,6 @@
 package com.dado.quanlytailieu.repository;
 
-import com.dado.quanlytailieu.model.FileEntity;
+import com.dado.quanlytailieu.entity.FileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

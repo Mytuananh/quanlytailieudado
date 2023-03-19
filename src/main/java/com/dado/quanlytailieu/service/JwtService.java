@@ -1,5 +1,5 @@
 package com.dado.quanlytailieu.service;
-import com.dado.quanlytailieu.model.SecretKey;
+import com.dado.quanlytailieu.entity.SecretKey;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
