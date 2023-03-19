@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.dado.quanlytailieu.command.ConstructionDocumentCommand;
-import com.dado.quanlytailieu.command.ImageUploadCommand;
 import com.dado.quanlytailieu.dto.ConstructionDocumentDto;
-import com.dado.quanlytailieu.model.ConstructionDocument;
-import com.dado.quanlytailieu.model.FileEntity;
+import com.dado.quanlytailieu.entity.ConstructionDocument;
 import com.dado.quanlytailieu.service.ConstructionDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

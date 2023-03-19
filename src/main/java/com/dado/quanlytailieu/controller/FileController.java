@@ -2,7 +2,7 @@ package com.dado.quanlytailieu.controller;
 
 import com.dado.quanlytailieu.dao.FileInfoDto;
 import com.dado.quanlytailieu.dao.FileUploadDto;
-import com.dado.quanlytailieu.model.FileEntity;
+import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.repository.FileRepository;
 import com.dado.quanlytailieu.service.FileService;
 import com.dado.quanlytailieu.service.JwtService;

@@ -1,8 +1,9 @@
-package com.dado.quanlytailieu.model;
+package com.dado.quanlytailieu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,12 +12,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class FileEntity {
+@NoArgsConstructor
+public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String fileName;
@@ -24,12 +26,12 @@ public class FileEntity {
     String type;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "file")
-    ConstructionDocument constructionDocument;
+    @ManyToOne
+    @JoinColumn(name = "construction_id")
+    Construction construction;
 
     String createdUser;
 
     @CreatedDate
     LocalDateTime createdTime = LocalDateTime.now();
-
 }

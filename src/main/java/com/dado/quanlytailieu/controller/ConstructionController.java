@@ -1,9 +1,8 @@
 package com.dado.quanlytailieu.controller;
 
 import com.dado.quanlytailieu.command.ConstructionCommand;
-import com.dado.quanlytailieu.dto.ConstructionDto;
 import com.dado.quanlytailieu.enums.ConstructionType;
-import com.dado.quanlytailieu.model.Construction;
+import com.dado.quanlytailieu.entity.Construction;
 import com.dado.quanlytailieu.service.ConstructionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

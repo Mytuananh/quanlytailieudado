@@ -1,20 +1,15 @@
 package com.dado.quanlytailieu.service;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dado.quanlytailieu.command.ConstructionCommand;
 import com.dado.quanlytailieu.command.ConstructionDocumentCommand;
 import com.dado.quanlytailieu.dto.ConstructionDocumentDto;
-import com.dado.quanlytailieu.model.Construction;
-import com.dado.quanlytailieu.model.ConstructionDocument;
-import com.dado.quanlytailieu.model.FileEntity;
+import com.dado.quanlytailieu.entity.ConstructionDocument;
+import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.repository.ConstructionRepository;
 import com.dado.quanlytailieu.repository.ContructionDocumentRepository;
 import com.dado.quanlytailieu.repository.FileRepository;
@@ -22,11 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service

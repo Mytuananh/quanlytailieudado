@@ -17,8 +17,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.dado.quanlytailieu.model.Construction;
-import com.dado.quanlytailieu.model.Image;
+import com.dado.quanlytailieu.entity.Construction;
+import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.dto.ResponseDto;
 import com.dado.quanlytailieu.repository.ConstructionRepository;
 import com.dado.quanlytailieu.repository.FileRepository;

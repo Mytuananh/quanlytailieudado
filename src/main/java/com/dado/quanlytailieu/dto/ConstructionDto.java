@@ -3,7 +3,6 @@ package com.dado.quanlytailieu.dto;
 import java.util.List;
 
 import com.dado.quanlytailieu.enums.ConstructionType;
-import com.dado.quanlytailieu.model.ConstructionDocument;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class ConstructionDto {
     String code;
     String location;
     ConstructionType type;
-    String area;
+    String size;
     String address;
     List<Resource> images;
     List<ConstructionDocumentDto> docs;

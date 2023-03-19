@@ -2,8 +2,7 @@ package com.dado.quanlytailieu.repository;
 
 import java.util.List;
 
-import com.dado.quanlytailieu.model.ConstructionDocument;
-import com.dado.quanlytailieu.model.Image;
+import com.dado.quanlytailieu.entity.ConstructionDocument;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -3,7 +3,7 @@ package com.dado.quanlytailieu.service;
 import com.dado.quanlytailieu.command.ConstructionCommand;
 import com.dado.quanlytailieu.dto.ConstructionDto;
 import com.dado.quanlytailieu.enums.ConstructionType;
-import com.dado.quanlytailieu.model.Construction;
+import com.dado.quanlytailieu.entity.Construction;
 import com.dado.quanlytailieu.repository.ConstructionRepository;
 import com.dado.quanlytailieu.repository.ContructionDocumentRepository;
 import com.dado.quanlytailieu.repository.ImageRepository;
@@ -38,8 +38,7 @@ public class ConstructionService {
         construction.setName(command.getName());
         construction.setCode(command.getCode());
         construction.setLocation(command.getLocation());
-        construction.setAddress(command.getAddress());
-        construction.setArea(command.getArea());
+        construction.setSize(command.getArea());
         construction.setType(ConstructionType.valueOf(command.getType()));
         var cons = constructionRepository.save(construction);
         return cons;
@@ -50,8 +49,7 @@ public class ConstructionService {
         construction.setName(command.getName());
         construction.setCode(command.getCode());
         construction.setLocation(command.getLocation());
-        construction.setAddress(command.getAddress());
-        construction.setArea(command.getArea());
+        construction.setSize(command.getArea());
         construction.setType(ConstructionType.valueOf(command.getType()));
         return constructionRepository.save(construction);
     }
@@ -83,8 +81,7 @@ public class ConstructionService {
             constructionDto.setCode(construction.getCode());
             constructionDto.setName(construction.getName());
             constructionDto.setType(construction.getType());
-            constructionDto.setAddress(construction.getAddress());
-            constructionDto.setArea(construction.getArea());
+            constructionDto.setSize(construction.getSize());
             constructionDto.setDocs(docs);
             constructionDtos.add(constructionDto);
         }

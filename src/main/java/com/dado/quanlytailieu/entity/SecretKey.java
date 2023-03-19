@@ -1,4 +1,4 @@
-package com.dado.quanlytailieu.model;
+package com.dado.quanlytailieu.entity;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
