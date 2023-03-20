@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private Role role;
 
     @ManyToMany(mappedBy = "users")
-    List<Construction> constructions = new ArrayList<>();
+    List<CongTrinh> congTrinhs = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

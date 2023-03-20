@@ -7,12 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 
 import com.dado.quanlytailieu.command.ImageUpdateCommand;
 import com.dado.quanlytailieu.dto.ResponseDto;
 import com.dado.quanlytailieu.dto.UploadImageResponse;
-import com.dado.quanlytailieu.repository.ConstructionRepository;
+import com.dado.quanlytailieu.repository.CongTrinhRepository;
 import com.dado.quanlytailieu.service.ImageService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
@@ -42,7 +41,7 @@ public class ImageController {
     ImageService imageService;
 
     @Autowired
-    ConstructionRepository constructionRepository;
+    CongTrinhRepository congTrinhRepository;
 
     @GetMapping("/download")
     public ResponseEntity downloadImage(@RequestParam("id") String id) throws Exception {
@@ -81,7 +80,7 @@ public class ImageController {
         try {
             // Lưu file vào server
             System.out.println("handleFileUpload");
-            var cons = constructionRepository.findById(constructionId).orElseThrow(() -> new RuntimeException("Khong tim thay ConstructionId"));
+            var cons = congTrinhRepository.findById(constructionId).orElseThrow(() -> new RuntimeException("Khong tim thay ConstructionId"));
             imageService.storeImageForConstruction(new MultipartFile[]{file}, cons);
             String fileName = file.getOriginalFilename();
 

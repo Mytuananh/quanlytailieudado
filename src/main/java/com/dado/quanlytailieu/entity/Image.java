@@ -28,7 +28,7 @@ public class Image {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "construction_id")
-    Construction construction;
+    CongTrinh congTrinh;
 
     String createdUser;
 

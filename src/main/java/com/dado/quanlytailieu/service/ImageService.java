@@ -17,10 +17,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.dado.quanlytailieu.entity.Construction;
+import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.dto.ResponseDto;
-import com.dado.quanlytailieu.repository.ConstructionRepository;
+import com.dado.quanlytailieu.repository.CongTrinhRepository;
 import com.dado.quanlytailieu.repository.FileRepository;
 import com.dado.quanlytailieu.repository.ImageRepository;
 
@@ -43,7 +43,7 @@ public class ImageService {
     FileRepository fileRepository;
 
     @Autowired
-    ConstructionRepository constructionRepository;
+    CongTrinhRepository congTrinhRepository;
 
     @Autowired
     public void ImageService(Environment env) {
@@ -85,7 +85,7 @@ public class ImageService {
         return images.stream().map(Image::getFileName).collect(Collectors.toList());
     }
 
-    public List<Image> storeImageForConstruction(MultipartFile[] files, Construction construction) throws Exception {
+    public List<Image> storeImageForConstruction(MultipartFile[] files, CongTrinh congTrinh) throws Exception {
         List<Image> images = new ArrayList<>();
         Set<String> set = new HashSet<>();
         List<String> fileNames = new ArrayList<>();
@@ -99,7 +99,7 @@ public class ImageService {
                 image.setFileName(file.getOriginalFilename());
                 image.setType(file.getContentType());
                 image.setCreatedUser("Nam");
-                image.setConstruction(construction);// fix
+                image.setCongTrinh(congTrinh);// fix
                 imageRepository.save(image);
                 images.add(image);
 
@@ -136,7 +136,7 @@ public class ImageService {
                         .message("Image name is duplicate!")
                         .httpCode(HttpStatus.BAD_REQUEST).build();
             } else {
-                var construction = constructionRepository.findById(Long.valueOf(id)).get();
+                var construction = congTrinhRepository.findById(Long.valueOf(id)).get();
                 if(Objects.isNull(construction)){
                     return ResponseDto.builder()
                             .message("Construction not exist!")
@@ -154,7 +154,7 @@ public class ImageService {
                 image.setFileName(file.getOriginalFilename());
                 image.setType(file.getContentType());
                 image.setCreatedUser("Nam"); // fix
-                image.setConstruction(construction);
+                image.setCongTrinh(construction);
                 imageRepository.save(image);
 
                 // Normalize file name
