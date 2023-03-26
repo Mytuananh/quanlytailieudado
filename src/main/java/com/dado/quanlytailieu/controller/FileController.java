@@ -26,7 +26,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class FileController {
 
-    @Value("${extern.resources.path}")
+    @Value("${extern.resources.path.file}")
     private String path;
 
     @Autowired
@@ -38,19 +38,6 @@ public class FileController {
     @Autowired
     private FileRepository fileRepository;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<FileInfoDto>> getAllFileName() {
-        return ResponseEntity.ok(fileService.getAllFileName());
-    }
-
-    @PostMapping("/upload")
-    public ResponseEntity<FileEntity> uploadFile(@ModelAttribute FileUploadDto fileUploadDTO, @RequestHeader String authorization) throws IOException {
-        String jwt;
-        jwt = authorization.substring(7);
-        String createdUser = jwtService.extractUsername(jwt);
-        return ResponseEntity.ok(fileService.uploadFile(fileUploadDTO, createdUser));
-    }
-
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) throws FileNotFoundException {
         return fileService.downloadFile(fileId);
@@ -61,39 +48,9 @@ public class FileController {
         return ResponseEntity.ok(fileService.getFileInfo(fileId));
     }
 
-    @GetMapping(value = "/file/{fileName:.+}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<Resource> getPreviewFile(@PathVariable String fileName) {
-        Path filePath = Paths.get(path, fileName);
-
-        try {
-            Resource resource = new UrlResource(filePath.toUri());
-
-            if (resource.exists() && resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .header("Content-Disposition", "inline; filename=" + fileName)
-                        .contentLength(Files.size(filePath))
-                        .contentType(MediaType.APPLICATION_PDF)
-                        .body(resource);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<?> createFile(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("createdUser") String createdUser
-    ) {
-
-        String filename = fileService.saveFile(file);
-        FileEntity fileEntity = new FileEntity();
-        fileEntity.setFileName(filename);
-        fileEntity.setCreatedUser(createdUser);
-        fileEntity = fileRepository.save(fileEntity);
-        return ResponseEntity.ok(fileEntity);
+    @GetMapping(value = "/preview/pdf/{fileId}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> getPreviewFile(@PathVariable Long fileId) {
+        return fileService.getPreviewFile(fileId);
     }
 
 }

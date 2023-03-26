@@ -10,4 +10,12 @@ import java.util.List;
 @Repository
 public interface CongTrinhRepository extends JpaRepository<CongTrinh, Long> {
     List<CongTrinh> getCongTrinhByTypeOrderById(CongTrinhType type);
+    List<CongTrinh> getCongTrinhsByMaCTIsIn(List<String> maCTList);
+    List<CongTrinh> getCongTrinhsByIdIsIn(List<Long> congTrinhLienQuan);
+
+    Integer countCongTrinhsByType(CongTrinhType maCT);
+
+    CongTrinh getCongTrinhByMaCT(String maCT);
+
+
 }

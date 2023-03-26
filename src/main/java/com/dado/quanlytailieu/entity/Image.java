@@ -23,12 +23,11 @@ public class Image {
 
     String fileName;
 
-    String type;
+    String fullPath;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "construction_id")
-    CongTrinh congTrinh;
+    Long size;
+
+    String type;
 
     String createdUser;
 

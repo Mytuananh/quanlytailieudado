@@ -34,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/images")
 public class ImageController {
-    @Value("${extern.resources.path}")
+    @Value("${extern.resources.path.image}")
     private String path;
 
     @Autowired
@@ -43,18 +43,7 @@ public class ImageController {
     @Autowired
     CongTrinhRepository congTrinhRepository;
 
-    @GetMapping("/download")
-    public ResponseEntity downloadImage(@RequestParam("id") String id) throws Exception {
-        var image = imageService.downloadImage(id);
-        if(image == null){
-            return ResponseEntity.badRequest().body("Resource of image error");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, "image/png");
-        headers.add(HttpHeaders.CONTENT_TYPE, "image/jpeg");
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getFilename() + "\"");
-        return new ResponseEntity(image, headers, HttpStatus.OK);
-    }
+
 
     @PostMapping("/upload")
     public ResponseEntity<Object> handleFileUpload(@RequestParam("file") MultipartFile file) {
@@ -75,89 +64,10 @@ public class ImageController {
         }
     }
 
-    @PostMapping("/upload/construction/{constructionId}")
-    public ResponseEntity<Object> uploadImageByConstructionId(@RequestParam("file") MultipartFile file, @PathVariable Long constructionId) {
-        try {
-            // Lưu file vào server
-            System.out.println("handleFileUpload");
-            var cons = congTrinhRepository.findById(constructionId).orElseThrow(() -> new RuntimeException("Khong tim thay ConstructionId"));
-            imageService.storeImageForConstruction(new MultipartFile[]{file}, cons);
-            String fileName = file.getOriginalFilename();
+    @GetMapping(value = "/preview/{imageId}")
+    public ResponseEntity<Resource> getPreviewFile(@PathVariable Long imageId) throws MalformedURLException {
+        return imageService.getPreviewFile(imageId);
 
-            // Tạo đường dẫn URL cho file đã lưu
-            String fileUrl = "http://localhost:8080/api/images/preview/" + fileName;
-
-            // Trả về URL của file đã lưu
-            return ResponseEntity.ok().body(fileUrl);
-        } catch (IOException e) {
-            // Xử lý nếu có lỗi khi lưu file
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseDto deleteImageById(@RequestParam(name = "id", required = true) String id) throws Exception {
-        var image = imageService.deleteImageById(id);
-        return ResponseDto.builder()
-                .message(image.getMessage())
-                .httpCode(image.getHttpCode())
-                .body(image.getBody()).build();
-    }
-
-    @PutMapping("/update")
-    public ResponseDto updateImageById(
-            @ModelAttribute ImageUpdateCommand command) throws Exception {
-        var image = imageService.updateImage(command.getId()
-                , command.getCreatedTime()
-                , command.getCreatedUser()
-                , command.getFile()
-                , command.getFileId());
-
-        return ResponseDto.builder()
-                .message(image.getMessage())
-                .httpCode(image.getHttpCode())
-                .body(image.getBody()).build();
-    }
-
-    @GetMapping(value = "/preview/{imageName:.+}")
-    public ResponseEntity<Resource> getPreviewFile(@PathVariable String imageName) throws MalformedURLException {
-        Path filePath = Paths.get("uploads/files/", imageName);
-
-        try {
-            Resource resource = new UrlResource(filePath.toUri());
-            MediaType[] mediaTypes = { MediaType.IMAGE_PNG, MediaType.IMAGE_JPEG };
-
-            if (resource.exists() && resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .header("Content-Disposition", "inline; filename=" + imageName)
-                        .contentLength(Files.size(filePath))
-                        .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
-                        .contentType(Arrays.stream(mediaTypes)
-                                .filter(mt -> mt.getSubtype().equalsIgnoreCase(FilenameUtils.getExtension(imageName)))
-                                .findFirst().orElse(MediaType.IMAGE_PNG))
-                        .body(resource);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return ResponseEntity.notFound().build();
-    }
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> getImageById(@RequestParam(name = "id")String id){
-//        var image = imageService.getImageById(id);
-//        if(Objects.isNull(image)){
-//            return ResponseEntity.badRequest().body("Image not exist");
-//        }
-//        return ResponseEntity.ok().body(image);
-//    }
-
-    @GetMapping("/construction/{constructionId}")
-    public ResponseEntity<?> getImageByConstructionId(@PathVariable String constructionId) throws MalformedURLException {
-        return ResponseEntity.ok().body(imageService.getListImageName(constructionId));
     }
 
     @GetMapping("/image/{fileName:.+}")

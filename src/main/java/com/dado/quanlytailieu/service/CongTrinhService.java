@@ -1,9 +1,14 @@
 package com.dado.quanlytailieu.service;
 
-import com.dado.quanlytailieu.command.ConstructionCommand;
-import com.dado.quanlytailieu.dto.CongTrinhDto;
+import com.dado.quanlytailieu.command.QuanLyCongTrinhRequest;
+import com.dado.quanlytailieu.dto.HoSoCongTrinhDto;
+import com.dado.quanlytailieu.dto.QuanLyCongTrinhDTO;
+import com.dado.quanlytailieu.entity.FileEntity;
+import com.dado.quanlytailieu.entity.HoSoCongTrinh;
+import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.enums.CongTrinhType;
 import com.dado.quanlytailieu.entity.CongTrinh;
+import com.dado.quanlytailieu.mapper.CongTrinhMapper;
 import com.dado.quanlytailieu.repository.CongTrinhRepository;
 import com.dado.quanlytailieu.repository.HoSoCongTrinhRepository;
 import com.dado.quanlytailieu.repository.ImageRepository;
@@ -14,6 +19,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CongTrinhService {
@@ -30,65 +36,45 @@ public class CongTrinhService {
     @Autowired
     HoSoCongTrinhRepository hoSoCongTrinhRepository;
 
-    @Autowired
-    HoSoCongTrinhService hoSoCongTrinhService;
 
-    public CongTrinh createConstruction(ConstructionCommand command) throws Exception {
-        CongTrinh congTrinh = new CongTrinh();
-        congTrinh.setName(command.getName());
-        congTrinh.setCode(command.getCode());
-        congTrinh.setLocation(command.getLocation());
-        congTrinh.setSize(command.getArea());
-        congTrinh.setType(CongTrinhType.valueOf(command.getType()));
-        var cons = congTrinhRepository.save(congTrinh);
-        return cons;
+    public CongTrinh createCongTrinh(CongTrinh congTrinhRequest, List<FileEntity> fileEntities, List<Image> images) {
+        Integer count = congTrinhRepository.countCongTrinhsByType(congTrinhRequest.getType()) + 1;
+        congTrinhRequest.setMaCT(String.format("%s%d", congTrinhRequest.getType().getValue(), count));
+        congTrinhRequest.setFiles(fileEntities.stream().map(FileEntity::getId).toList());
+        congTrinhRequest.setImages(images.stream().map(Image::getId).toList());
+        return congTrinhRepository.save(congTrinhRequest);
     }
 
-    public CongTrinh updateConstruction(Long constructionId, ConstructionCommand command) throws Exception {
-        var construction = congTrinhRepository.findById(constructionId).get();
+    public CongTrinh updateConstruction(Long constructionId, QuanLyCongTrinhRequest command) throws Exception {
+        CongTrinh construction = congTrinhRepository.findById(constructionId).get();
         construction.setName(command.getName());
-        construction.setCode(command.getCode());
-        construction.setLocation(command.getLocation());
-        construction.setSize(command.getArea());
-        construction.setType(CongTrinhType.valueOf(command.getType()));
+        construction.setMaCT(command.getMaCT());
+        construction.setViTri(command.getViTri());
+        construction.setQuyMo(command.getQuyMo());
         return congTrinhRepository.save(construction);
-    }
-
-
-    public CongTrinhDto findConstructionById(String id) throws MalformedURLException {
-        var construction = congTrinhRepository.findById(Long.valueOf(id)).orElse(null);
-        var docs = hoSoCongTrinhService.getConstructionDocsByConstructionId(id);
-        if(Objects.isNull(construction)){
-            return null;
-        }
-        CongTrinhDto dto = new CongTrinhDto();
-        dto.setName(construction.getName());
-        dto.setCode(construction.getCode());
-        dto.setLocation(construction.getLocation());
-        dto.setType(construction.getType());
-        dto.setDocs(docs);
-        return dto;
-    }
-
-    public List<CongTrinhDto> getAllContruction() throws MalformedURLException {
-        var constructions = congTrinhRepository.findAll();
-        List<CongTrinhDto> congTrinhDtos = new ArrayList<>();
-        for (CongTrinh congTrinh :constructions) {
-            var docs = hoSoCongTrinhService
-                    .getConstructionDocsByConstructionId(String.valueOf(congTrinh.getId()));
-            CongTrinhDto congTrinhDto = new CongTrinhDto();
-            congTrinhDto.setLocation(congTrinh.getLocation());
-            congTrinhDto.setCode(congTrinh.getCode());
-            congTrinhDto.setName(congTrinh.getName());
-            congTrinhDto.setType(congTrinh.getType());
-            congTrinhDto.setSize(congTrinh.getSize());
-            congTrinhDto.setDocs(docs);
-            congTrinhDtos.add(congTrinhDto);
-        }
-        return congTrinhDtos;
     }
 
     public List<CongTrinh> getConstructionByType(CongTrinhType type) {
         return congTrinhRepository.getCongTrinhByTypeOrderById(type);
+    }
+
+    public QuanLyCongTrinhDTO getDataQuanLyCongTrinhByMaCT(String maCT) {
+        CongTrinh ct = congTrinhRepository.getCongTrinhByMaCT(maCT);
+        List<String> tenCongTrinhLienQuan = congTrinhRepository.getCongTrinhsByIdIsIn(ct.getCongTrinhLienQuan()).stream().map(CongTrinh::getName).toList();
+        return CongTrinhMapper.toQuanLyCongTrinhDTO(ct, tenCongTrinhLienQuan);
+    }
+
+    public CongTrinh findCongTrinhById(Long id) {
+        return congTrinhRepository.findById(id).orElseThrow();
+    }
+
+    public CongTrinh updateCongTrinh(CongTrinh congTrinh, List<FileEntity> fileEntities, List<Image> images) {
+        if (congTrinh.getMaCT().isBlank()) {
+            Integer count = congTrinhRepository.countCongTrinhsByType(congTrinh.getType()) + 1;
+            congTrinh.setMaCT(String.format("%s%d", congTrinh.getType().getValue(), count));
+        }
+        fileEntities.forEach(fileEntity -> congTrinh.getFiles().add(fileEntity.getId()));
+        images.forEach(image -> congTrinh.getImages().add(image.getId()));
+        return congTrinhRepository.save(congTrinh);
     }
 }

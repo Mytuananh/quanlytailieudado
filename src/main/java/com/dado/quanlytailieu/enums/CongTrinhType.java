@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum CongTrinhType {
 
-    CONG("cong"),
-    KENH_DAT("kenh_dat"),
-    TRAM_BOM("tram_bom"),
-    KENH_XAY("kenh_xay"),
-    KENH_TUOI("kenh_tuoi"),
+    CONG("C"),
+    KENH_DAT("K"),
+    TRAM_BOM("TB"),
+    KENH_XAY("CTTK"),
+    KENH_TUOI("KT"),
     ;
 
     private final String value;

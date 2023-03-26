@@ -36,40 +36,40 @@ public class HoSoCongTrinh {
     @ManyToOne
     DonViThiCong donViThiCong;      // Don vi thi cong
 
-    LocalDate constructionTimeFrom;     // thoi gian thi cong
-    LocalDate constructionTimeTo;
+    LocalDate thoiGianThiCongFrom;     // thoi gian thi cong
+    LocalDate thoiGianThiCongTo;
 
     TinhTrangTrienKhai tinhTrangTrienKhai;      // Tình trang trien khai
 
     @OneToOne
-    @JoinColumn(name = "document_progress_id", referencedColumnName = "id")
+    @JoinColumn(name = "tien_do_ho_so_id", referencedColumnName = "id")
     TienDoHoSo tienDoHoSo;      // Tien do ho so
 
     @OneToOne
-    @JoinColumn(name = "construction_progress_id", referencedColumnName = "id")
+    @JoinColumn(name = "tien_do_thi_cong_id", referencedColumnName = "id")
     TienDoThiCong tienDoThiCong;
 
-    String estimate;
+    String duToan;
 
     @OneToOne
-    @JoinColumn(name = "file_id",  referencedColumnName = "id")
-    FileEntity estimateFile;
+    @JoinColumn(name = "du_toan_file_id",  referencedColumnName = "id")
+    FileEntity duToanFile;
 
-    String settlementAB;      // Quyet toan
-
-    @OneToOne
-    @JoinColumn(name = "file_id",  referencedColumnName = "id")
-    FileEntity settlementABFile;
-
-    String settlement;      // Quyet toan
+    String quyetToanAB;      // Quyet toan
 
     @OneToOne
-    @JoinColumn(name = "file_id",  referencedColumnName = "id")
-    FileEntity settlementValueFile;
+    @JoinColumn(name = "quyet_toan_AB_file_id",  referencedColumnName = "id")
+    FileEntity quyetToanABFile;
+
+    String quyetToan;      // Quyet toan
 
     @OneToOne
-    @JoinColumn(name = "file_id",  referencedColumnName = "id")
-    FileEntity settlementReportFile;        // Bao cao bien phong
+    @JoinColumn(name = "quyet_toan_id",  referencedColumnName = "id")
+    FileEntity quyetToanFile;
+
+    @OneToOne
+    @JoinColumn(name = "bao_cao_bien_phong_file_id",  referencedColumnName = "id")
+    FileEntity baoCaoBienPhongFile;        // Bao cao bien phong
 
     String comment;
 

@@ -59,13 +59,13 @@ public class Default {
         builder.deserializers(new LocalDateDeserializer(Default.DATE_FORMATTER));
         builder.deserializers(new LocalDateTimeDeserializer(Default.DATE_TIME_FORMATTER));
     }
-
-    public static void setDefault(FormatterRegistry registry) {
-        var dateTimeRegistrar = new DateTimeFormatterRegistrar();
-        dateTimeRegistrar.setDateTimeFormatter(Default.DATE_TIME_FORMATTER);
-        dateTimeRegistrar.setDateFormatter(Default.DATE_FORMATTER);
-        dateTimeRegistrar.setTimeFormatter(Default.TIME_FORMATTER);
-        dateTimeRegistrar.registerFormatters(registry);
-    }
+//
+//    public static void setDefault(FormatterRegistry registry) {
+//        var dateTimeRegistrar = new DateTimeFormatterRegistrar();
+//        dateTimeRegistrar.setDateTimeFormatter(Default.DATE_TIME_FORMATTER);
+//        dateTimeRegistrar.setDateFormatter(Default.DATE_FORMATTER);
+//        dateTimeRegistrar.setTimeFormatter(Default.TIME_FORMATTER);
+//        dateTimeRegistrar.registerFormatters(registry);
+//    }
 }
 

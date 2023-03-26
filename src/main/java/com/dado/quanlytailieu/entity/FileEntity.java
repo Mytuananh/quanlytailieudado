@@ -16,10 +16,14 @@ import java.time.LocalDateTime;
 public class FileEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String fileName;
+
+    String filePath;
+
+    Long size;
 
     String type;
 

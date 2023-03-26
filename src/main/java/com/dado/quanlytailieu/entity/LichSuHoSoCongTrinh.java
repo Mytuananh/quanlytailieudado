@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Entity
 @Data
-@MappedSuperclass
 public class LichSuHoSoCongTrinh {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
