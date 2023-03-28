@@ -1,25 +1,21 @@
 package com.dado.quanlytailieu.service;
 
 import com.dado.quanlytailieu.command.QuanLyCongTrinhRequest;
-import com.dado.quanlytailieu.dto.HoSoCongTrinhDto;
 import com.dado.quanlytailieu.dto.QuanLyCongTrinhDTO;
 import com.dado.quanlytailieu.entity.FileEntity;
-import com.dado.quanlytailieu.entity.HoSoCongTrinh;
 import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.enums.CongTrinhType;
 import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.mapper.CongTrinhMapper;
 import com.dado.quanlytailieu.repository.CongTrinhRepository;
+import com.dado.quanlytailieu.repository.FileRepository;
 import com.dado.quanlytailieu.repository.HoSoCongTrinhRepository;
 import com.dado.quanlytailieu.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class CongTrinhService {
@@ -35,6 +31,8 @@ public class CongTrinhService {
 
     @Autowired
     HoSoCongTrinhRepository hoSoCongTrinhRepository;
+    @Autowired
+    private FileRepository fileRepository;
 
 
     public CongTrinh createCongTrinh(CongTrinh congTrinhRequest, List<FileEntity> fileEntities, List<Image> images) {
@@ -67,8 +65,8 @@ public class CongTrinhService {
         return CongTrinhMapper.toQuanLyCongTrinhDTO(ct, tenCongTrinhLienQuan);
     }
 
-    public CongTrinh findCongTrinhById(Long id) {
-        return congTrinhRepository.findById(id).orElseThrow();
+    public CongTrinh findCongTrinhByMaCT(String maCT) {
+        return congTrinhRepository.getCongTrinhByMaCT(maCT);
     }
 
     public CongTrinh updateCongTrinh(CongTrinh congTrinh, List<FileEntity> fileEntities, List<Image> images) {
@@ -85,7 +83,22 @@ public class CongTrinhService {
         return congTrinhRepository.getCongTrinhByMaCT(maCT).getImages();
     }
 
-    public List<Long> getListFileByMaCT(String maCT) {
-        return congTrinhRepository.getCongTrinhByMaCT(maCT).getFiles();
+    public List<String> getListFileByMaCT(String maCT) {
+        List<Long> fileIds = congTrinhRepository.getCongTrinhByMaCT(maCT).getFiles();
+        return fileRepository.findFileEntitiesByIdIsIn(fileIds).stream().map(FileEntity::getFileName).toList();
+    }
+
+    public void deleteCongTrinhByMaCT(String maCT) {
+        CongTrinh ct = congTrinhRepository.getCongTrinhByMaCT(maCT);
+        congTrinhRepository.delete(ct);
+    }
+
+    public CongTrinh deleteFileByMaCT(String maCT, String fileName) {
+        CongTrinh ct = congTrinhRepository.getCongTrinhByMaCT(maCT);
+        FileEntity file = fileRepository.findByFileName(fileName);
+        ct.getFiles().remove(file.getId());
+
+        fileRepository.delete(file);
+        return congTrinhRepository.save(ct);
     }
 }

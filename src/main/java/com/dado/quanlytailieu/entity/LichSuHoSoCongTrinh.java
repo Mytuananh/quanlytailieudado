@@ -2,7 +2,10 @@ package com.dado.quanlytailieu.entity;
 
 import com.dado.quanlytailieu.extra.MapStringStringJsonType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
@@ -10,6 +13,9 @@ import java.util.Map;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LichSuHoSoCongTrinh {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

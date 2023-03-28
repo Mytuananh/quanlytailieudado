@@ -48,9 +48,9 @@ public class FileController {
         return ResponseEntity.ok(fileService.getFileInfo(fileId));
     }
 
-    @GetMapping(value = "/preview/pdf/{fileId}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<Resource> getPreviewFile(@PathVariable Long fileId) {
-        return fileService.getPreviewFile(fileId);
+    @GetMapping(value = "/preview/pdf/{fileName:.+}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> getPreviewFile(@PathVariable String fileName) {
+        return fileService.getPreviewFile(fileName);
     }
 
 }

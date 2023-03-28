@@ -4,6 +4,7 @@ import com.dado.quanlytailieu.dao.FileInfoDto;
 import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.repository.FileRepository;
+import com.dado.quanlytailieu.util.DateTimeConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -22,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class FileService {
     }
 
     private String decideFullPath(MultipartFile file) {
-        String filename = file.getOriginalFilename();
+        String filename = file.getOriginalFilename() + "-" + DateTimeConvertUtil.convertLocalDateTimeToUniqueNumber(LocalDateTime.now());
         int index = filename.indexOf('.');
         String extension = filename.substring(index+1).toUpperCase();
         return filePath + File.separator + File.separator+ filename;
@@ -118,7 +120,7 @@ public class FileService {
             fileDir.mkdirs();
         }
         for (MultipartFile file : files) {
-            String fileName = file.getOriginalFilename();
+            String fileName = file.getOriginalFilename() + "-" + DateTimeConvertUtil.convertLocalDateTimeToUniqueNumber(LocalDateTime.now());
             String fullPath = filePath + fileName;
             File convFile = new File(fullPath);
             FileOutputStream fos = new FileOutputStream(convFile);
@@ -133,15 +135,15 @@ public class FileService {
         return fileRepository.saveAll(fileEntities);
     }
 
-    public ResponseEntity<Resource> getPreviewFile(Long fileId) {
-        FileEntity fileEntity = fileRepository.findById(fileId).orElseThrow();
-        Path path = Paths.get(filePath, fileEntity.getFileName());
+    public ResponseEntity<Resource> getPreviewFile(String fileName) {
+//        FileEntity fileEntity = fileRepository.findByFileName(fileName);
+        Path path = Paths.get(filePath, fileName);
 
         try {
             Resource resource = new UrlResource(path.toUri());
 
             if (resource.exists() && resource.isReadable()) {
-                String encodedFileName = URLEncoder.encode(fileEntity.getFileName(), StandardCharsets.UTF_8);
+                String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8);
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename*=UTF-8''" + encodedFileName)
                         .contentLength(Files.size(path))

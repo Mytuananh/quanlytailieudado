@@ -22,7 +22,7 @@ public class CongTrinh {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "ma_ct")
+    @Column(name = "ma_ct", unique = true)
     String maCT;        // type + STT
     String name;
     String viTri;    // vi tri / dia diem
