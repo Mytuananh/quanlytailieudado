@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +58,19 @@ public class CongTrinhController {
         return ResponseEntity.ok().body(congTrinhService.updateConstruction(constructionId, command));
     }
 
-    @GetMapping("/type")
-    public List<CongTrinh> getConstructionByType(@RequestParam CongTrinhType type) {
+    @GetMapping(path = "/type")
+    public List<QuanLyCongTrinhDTO> getConstructionByType(@RequestParam CongTrinhType type) {
         return congTrinhService.getConstructionByType(type);
+    }
+
+    @GetMapping("/list/images/{maCT}")
+    public List<Long> getListImageByMaCT(@PathVariable String maCT) {
+        return congTrinhService.getListImageByMaCT(maCT);
+    }
+
+    @GetMapping("/list/files/{maCT}")
+    public List<Long> getListFileByMaCT(@PathVariable String maCT) {
+        return congTrinhService.getListFileByMaCT(maCT);
     }
 
     @GetMapping("/maCongTrinh")
@@ -72,22 +83,24 @@ public class CongTrinhController {
 //            @RequestParam("maCT") String maCT,
             @RequestParam("name") String name,
             @RequestParam("viTri") String viTri,
-            @RequestParam("type") CongTrinhType type,
+            @RequestParam("type") String type,
             @RequestParam("quyMo") String quyMo,
             @RequestParam("thietBi") String thietBi,
             @RequestParam("congTrinhLienQuan") List<Long> congTrinhLienQuan,
             @RequestParam("thongTinKhac") String thongTinKhac,
+            @RequestParam("soThuTu") String soThuTu,
             MultipartHttpServletRequest request) throws Exception {
 
         CongTrinh congTrinhRequest = new CongTrinh();
 //        congTrinhRequest.setMaCT(maCT);
         congTrinhRequest.setName(name);
         congTrinhRequest.setViTri(viTri);
-        congTrinhRequest.setType(type);
+        congTrinhRequest.setType(CongTrinhType.getType(type));
         congTrinhRequest.setQuyMo(quyMo);
         congTrinhRequest.setThietBi(thietBi);
         congTrinhRequest.setCongTrinhLienQuan(congTrinhLienQuan);
         congTrinhRequest.setThongTinKhac(thongTinKhac);
+        congTrinhRequest.setMaCT(type + soThuTu);
 
         List<FileEntity> fileEntities = fileService.saveFileForCongtrinh(request.getFiles("files"));
         List<Image> images = imageService.storeImageForConstruction(request.getFiles("images"));

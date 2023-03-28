@@ -5,10 +5,7 @@ import java.util.List;
 import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.enums.CongTrinhType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.core.io.Resource;
 
 @Data

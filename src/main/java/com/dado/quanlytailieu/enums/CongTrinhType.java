@@ -16,4 +16,13 @@ public enum CongTrinhType {
     CongTrinhType(String value) {
         this.value = value;
     }
+
+    public static CongTrinhType getType(String value) {
+        for (CongTrinhType type : CongTrinhType.values()) {
+            if (type.value.equals(value)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Invalid value for CongTrinhType: " + value);
+    }
 }

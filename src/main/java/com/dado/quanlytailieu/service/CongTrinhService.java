@@ -39,7 +39,9 @@ public class CongTrinhService {
 
     public CongTrinh createCongTrinh(CongTrinh congTrinhRequest, List<FileEntity> fileEntities, List<Image> images) {
         Integer count = congTrinhRepository.countCongTrinhsByType(congTrinhRequest.getType()) + 1;
-        congTrinhRequest.setMaCT(String.format("%s%d", congTrinhRequest.getType().getValue(), count));
+        if (congTrinhRequest.getMaCT() == null) {
+            congTrinhRequest.setMaCT(String.format("%s%d", congTrinhRequest.getType().getValue(), count));
+        }
         congTrinhRequest.setFiles(fileEntities.stream().map(FileEntity::getId).toList());
         congTrinhRequest.setImages(images.stream().map(Image::getId).toList());
         return congTrinhRepository.save(congTrinhRequest);
@@ -54,8 +56,9 @@ public class CongTrinhService {
         return congTrinhRepository.save(construction);
     }
 
-    public List<CongTrinh> getConstructionByType(CongTrinhType type) {
-        return congTrinhRepository.getCongTrinhByTypeOrderById(type);
+    public List<QuanLyCongTrinhDTO> getConstructionByType(CongTrinhType type) {
+        List<CongTrinh> congTrinhs = congTrinhRepository.getCongTrinhByTypeOrderById(type);
+        return congTrinhs.stream().map(CongTrinhMapper::toQuanLyCongTrinhDTO).toList();
     }
 
     public QuanLyCongTrinhDTO getDataQuanLyCongTrinhByMaCT(String maCT) {
@@ -76,5 +79,13 @@ public class CongTrinhService {
         fileEntities.forEach(fileEntity -> congTrinh.getFiles().add(fileEntity.getId()));
         images.forEach(image -> congTrinh.getImages().add(image.getId()));
         return congTrinhRepository.save(congTrinh);
+    }
+
+    public List<Long> getListImageByMaCT(String maCT) {
+        return congTrinhRepository.getCongTrinhByMaCT(maCT).getImages();
+    }
+
+    public List<Long> getListFileByMaCT(String maCT) {
+        return congTrinhRepository.getCongTrinhByMaCT(maCT).getFiles();
     }
 }

@@ -33,4 +33,19 @@ public class CongTrinhMapper {
                 .files(ct.getFiles())
                 .build();
     }
+
+    public static QuanLyCongTrinhDTO toQuanLyCongTrinhDTO(CongTrinh ct) {
+        return QuanLyCongTrinhDTO.builder()
+                .maCT(ct.getMaCT())
+                .name(ct.getName())
+                .viTri(ct.getViTri())
+                .type(ct.getType())
+                .quyMo(ct.getQuyMo())
+                .thietBi(ct.getThietBi())
+                .congTrinhLienQuan(ct.getCongTrinhLienQuan())
+                .thongTinKhac(ct.getThongTinKhac())
+                .images(ct.getImages())
+                .files(ct.getFiles())
+                .build();
+    }
 }
