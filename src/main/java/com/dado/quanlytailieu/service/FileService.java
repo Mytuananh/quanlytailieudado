@@ -72,7 +72,7 @@ public class FileService {
     }
 
     private String decideFullPath(MultipartFile file) {
-        String filename = file.getOriginalFilename() + "-" + DateTimeConvertUtil.convertLocalDateTimeToUniqueNumber(LocalDateTime.now());
+        String filename = file.getOriginalFilename();
         int index = filename.indexOf('.');
         String extension = filename.substring(index+1).toUpperCase();
         return filePath + File.separator + File.separator+ filename;
@@ -120,7 +120,7 @@ public class FileService {
             fileDir.mkdirs();
         }
         for (MultipartFile file : files) {
-            String fileName = file.getOriginalFilename() + "-" + DateTimeConvertUtil.convertLocalDateTimeToUniqueNumber(LocalDateTime.now());
+            String fileName = file.getOriginalFilename();
             String fullPath = filePath + fileName;
             File convFile = new File(fullPath);
             FileOutputStream fos = new FileOutputStream(convFile);

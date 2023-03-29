@@ -33,7 +33,6 @@ public class LichSuChinhSuaCongTrinh {
     String thongTinKhac;
     String image;
     String file;
-    String noiDung
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     LocalDateTime editTime = LocalDateTime.now();
 }
