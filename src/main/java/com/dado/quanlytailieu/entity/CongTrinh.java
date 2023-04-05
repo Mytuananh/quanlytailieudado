@@ -71,4 +71,7 @@ public class CongTrinh {
 
     String longitude;
 
+    String donViThucHien;
+    String nguoiQuanLy;
+
 }

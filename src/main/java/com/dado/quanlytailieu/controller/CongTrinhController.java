@@ -2,22 +2,22 @@ package com.dado.quanlytailieu.controller;
 
 import com.dado.quanlytailieu.command.QuanLyCongTrinhRequest;
 import com.dado.quanlytailieu.dto.QuanLyCongTrinhDTO;
+import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.entity.LichSuChinhSuaCongTrinh;
 import com.dado.quanlytailieu.enums.CongTrinhType;
-import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.repository.LichSuChinhSuaCongTrinhRepository;
-import com.dado.quanlytailieu.service.CongTrinhService;
-import com.dado.quanlytailieu.service.FileService;
-import com.dado.quanlytailieu.service.ImageService;
-import com.dado.quanlytailieu.service.LichSuChinhSuaCongTrinhService;
+import com.dado.quanlytailieu.service.*;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +46,9 @@ public class CongTrinhController {
 
     @Autowired
     LichSuChinhSuaCongTrinhService lichSuChinhSuaCongTrinhService;
+
+    @Autowired
+    ExcelService excelService;
 
 //    @GetMapping("/all")
 //    public List<ConstructionDto> getAllConstruction() {
@@ -193,4 +196,13 @@ public class CongTrinhController {
         return ResponseEntity.ok(ct);
     }
 
+    @GetMapping("/get/excel")
+    public void downloadExcelThongTinHoSoCongTrinh(HttpServletResponse response, @RequestParam String so) throws IOException {
+        excelService.downloadExcelThongTinHoSoCongTrinh(response, so);
+    }
+
+    @GetMapping("/excel/bao-cao-tien-do")
+    public void downloadExcelBaoCaoTienDo(HttpServletResponse response, @RequestParam String so, @RequestParam String maCT) throws IOException {
+        excelService.downloadExcelBaoCaoTienDo(response, so, maCT);
+    }
 }

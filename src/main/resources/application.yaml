@@ -16,5 +16,5 @@ spring:
 extern:
   resources:
     path:
-      image: C:\Users\Administrator\Documents\resources\image\
-      file: C:\Users\Administrator\Documents\resources\files\
+      image: D:\resources\images
+      file: D:\resources\files\
