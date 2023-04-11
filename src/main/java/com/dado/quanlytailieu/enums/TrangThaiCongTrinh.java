@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum TrangThaiCongTrinh {
-    DA("Đã"),
+    DA_CAM_MOC("Đã"),
     CHUA_CAM_MOC("Chưa cắm mốc");
 
     private String value;

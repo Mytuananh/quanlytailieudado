@@ -39,4 +39,18 @@ public class ExcelUtil {
         return mergedCellStyle;
     }
 
+    public static CellStyle getCenterCell(CellStyle cellStyle) {
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        return cellStyle;
+    }
+
+    public static CellStyle getBorderThinCell(CellStyle cellStyle) {
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        return cellStyle;
+    }
+
 }

@@ -64,7 +64,7 @@ public class AbstractJsonType<T> implements UserType<T> {
     public T nullSafeGet(ResultSet rs, int i, SharedSessionContractImplementor session, Object owner) throws SQLException {
         String cellContent = rs.getString(i);
 
-        if (cellContent.isBlank()) {
+        if (cellContent == null || cellContent.isBlank()) {
             return emptySupplier == null ? null : emptySupplier.get();
         }
         try {

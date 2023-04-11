@@ -19,9 +19,11 @@ public class QuanLyCongTrinhDTO {
     CongTrinhType type;
     String quyMo;
     String thietBi;
-    List<Long> congTrinhLienQuan;
+    List<String> congTrinhLienQuan;
     List<String> tenCongTrinhLienQuan;
     String thongTinKhac;
+    String lat;
+    String lon;
     List<Long> images;        // url
     List<Long> files;         // url
 }

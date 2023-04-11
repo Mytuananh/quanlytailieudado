@@ -1,6 +1,8 @@
 package com.dado.quanlytailieu.service;
 
 import com.dado.quanlytailieu.command.QuanLyCongTrinhRequest;
+import com.dado.quanlytailieu.dto.CongTrinhCountDto;
+import com.dado.quanlytailieu.dto.CongTrinhDTO;
 import com.dado.quanlytailieu.dto.QuanLyCongTrinhDTO;
 import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.entity.Image;
@@ -11,9 +13,14 @@ import com.dado.quanlytailieu.repository.CongTrinhRepository;
 import com.dado.quanlytailieu.repository.FileRepository;
 import com.dado.quanlytailieu.repository.HoSoCongTrinhRepository;
 import com.dado.quanlytailieu.repository.ImageRepository;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,14 +61,14 @@ public class CongTrinhService {
         return congTrinhRepository.save(construction);
     }
 
-    public List<QuanLyCongTrinhDTO> getConstructionByType(CongTrinhType type) {
+    public List<CongTrinhDTO> getConstructionByType(CongTrinhType type) {
         List<CongTrinh> congTrinhs = congTrinhRepository.getCongTrinhByTypeOrderById(type);
-        return congTrinhs.stream().map(CongTrinhMapper::toQuanLyCongTrinhDTO).toList();
+        return congTrinhs.stream().map(CongTrinhMapper::toCongTrinhDTO).toList();
     }
 
     public QuanLyCongTrinhDTO getDataQuanLyCongTrinhByMaCT(String maCT) {
         CongTrinh ct = congTrinhRepository.getCongTrinhByMaCT(maCT);
-        List<String> tenCongTrinhLienQuan = congTrinhRepository.getCongTrinhsByIdIsIn(ct.getCongTrinhLienQuan()).stream().map(CongTrinh::getName).toList();
+        List<String> tenCongTrinhLienQuan = congTrinhRepository.getCongTrinhsByMaCTIsIn(ct.getCongTrinhLienQuan()).stream().map(CongTrinh::getName).toList();
         return CongTrinhMapper.toQuanLyCongTrinhDTO(ct, tenCongTrinhLienQuan);
     }
 
@@ -100,5 +107,99 @@ public class CongTrinhService {
 
         fileRepository.delete(file);
         return congTrinhRepository.save(ct);
+    }
+
+    public void getHoSoExcel(String donViThucHien, HttpServletResponse response) throws IOException {
+        Workbook workbook = new XSSFWorkbook();
+        // tạo sheet mới
+        Sheet sheet = workbook.createSheet("Danh sách");
+
+// tạo header cho sheet
+        Row header = sheet.createRow(5);
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+        header.createCell(0).setCellValue("STT");
+        header.getCell(0).setCellStyle(headerStyle);
+        header.createCell(1).setCellValue("Name");
+        header.getCell(1).setCellStyle(headerStyle);
+        header.createCell(2).setCellValue("Age");
+        header.getCell(2).setCellStyle(headerStyle);
+
+        // lấy dữ liệu từ cơ sở dữ liệu
+        var congTrinhList = congTrinhRepository.getCongTrinhsByDonViThucHien(donViThucHien);
+
+        // ghi dữ liệu vào sheet
+        int rowNum = 6;
+        CellStyle dataCellStyle = workbook.createCellStyle();
+        dataCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        dataCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        dataCellStyle.setBorderTop(BorderStyle.THIN);
+        dataCellStyle.setBorderRight(BorderStyle.THIN);
+        dataCellStyle.setBorderBottom(BorderStyle.THIN);
+        dataCellStyle.setBorderLeft(BorderStyle.THIN);
+//        for (CongTrinh ct : congTrinhList) {
+//            Row row = sheet.createRow(rowNum++);
+//            row.createCell(0).setCellValue(rs.getInt("id"));
+//            row.getCell(0).setCellStyle(dataCellStyle);
+//            row.createCell(1).setCellValue(rs.getString("name"));
+//            row.getCell(1).setCellStyle(dataCellStyle);
+//            row.createCell(2).setCellValue(rs.getInt("age"));
+//            row.getCell(2).setCellStyle(dataCellStyle);
+//        }
+
+        // merge và center dòng A10 đến E10
+        CellStyle centerCellStyle = workbook.createCellStyle();
+        centerCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        centerCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        centerCellStyle.setBorderTop(BorderStyle.THIN);
+        centerCellStyle.setBorderRight(BorderStyle.THIN);
+        centerCellStyle.setBorderBottom(BorderStyle.THIN);
+        centerCellStyle.setBorderLeft(BorderStyle.THIN);
+
+        sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 4));
+        Row donViThucHienRow = sheet.createRow(9);
+        Cell donViThucHienCell = donViThucHienRow.createCell(0);
+        donViThucHienCell.setCellValue("DON VI THUC HIEN");
+        donViThucHienCell.setCellStyle(centerCellStyle);
+
+        // tạo file Excel
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition", "attachment; filename=DanhSach.xlsx");
+        workbook.write(response.getOutputStream());
+        workbook.close();
+
+    }
+
+    public CongTrinhCountDto getAllCongTrinhCount() {
+        CongTrinhCountDto dto = new CongTrinhCountDto();
+        dto.setCongDuoiDe(congTrinhRepository.countCongTrinhsByType(CongTrinhType.CONG));
+        dto.setTramBom(congTrinhRepository.countCongTrinhsByType(CongTrinhType.TRAM_BOM));
+        dto.setCongTrinhTrenKenh(congTrinhRepository.countCongTrinhsByType(CongTrinhType.KENH_XAY));
+        dto.setKenhCapI(congTrinhRepository.countCongTrinhsByType(CongTrinhType.KENH_DAT));
+        dto.setKenhTuoiSauTB(congTrinhRepository.countCongTrinhsByType(CongTrinhType.KENH_TUOI));
+        return dto;
+
+    }
+
+    public List<CongTrinh> getAllCongTrinh() {
+         return congTrinhRepository.findAll();
+    }
+
+    public void save(CongTrinh congTrinh) {
+        congTrinhRepository.save(congTrinh);
+    }
+
+    public CongTrinh getCongTrinhByMaCT(String maCT) {
+        return congTrinhRepository.getCongTrinhByMaCT(maCT);
     }
 }

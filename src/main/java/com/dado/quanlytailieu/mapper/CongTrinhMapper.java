@@ -1,6 +1,7 @@
 package com.dado.quanlytailieu.mapper;
 
 import com.dado.quanlytailieu.command.QuanLyCongTrinhRequest;
+import com.dado.quanlytailieu.dto.CongTrinhDTO;
 import com.dado.quanlytailieu.dto.QuanLyCongTrinhDTO;
 import com.dado.quanlytailieu.entity.CongTrinh;
 
@@ -29,6 +30,8 @@ public class CongTrinhMapper {
                 .congTrinhLienQuan(ct.getCongTrinhLienQuan())
                 .tenCongTrinhLienQuan(tenCongTrinhLienQuan)
                 .thongTinKhac(ct.getThongTinKhac())
+                .lat(ct.getLatitude())
+                .lon(ct.getLongitude())
                 .images(ct.getImages())
                 .files(ct.getFiles())
                 .build();
@@ -44,8 +47,19 @@ public class CongTrinhMapper {
                 .thietBi(ct.getThietBi())
                 .congTrinhLienQuan(ct.getCongTrinhLienQuan())
                 .thongTinKhac(ct.getThongTinKhac())
+                .lat(ct.getLatitude())
+                .lon(ct.getLongitude())
                 .images(ct.getImages())
                 .files(ct.getFiles())
+                .build();
+    }
+
+    public static CongTrinhDTO toCongTrinhDTO(CongTrinh ct) {
+        return CongTrinhDTO.builder()
+                .maCT(ct.getMaCT())
+                .name(ct.getName())
+                .hoSoCTCount(ct.getHoSoCongTrinhs().size())
+                .hoSoViPhamCount(ct.getViPhamLanChiem().size())
                 .build();
     }
 }

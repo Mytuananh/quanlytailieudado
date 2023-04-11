@@ -1,12 +1,15 @@
 package com.dado.quanlytailieu.controller;
 
 import com.dado.quanlytailieu.command.QuanLyCongTrinhRequest;
+import com.dado.quanlytailieu.dto.CongTrinhCountDto;
+import com.dado.quanlytailieu.dto.CongTrinhDTO;
 import com.dado.quanlytailieu.dto.QuanLyCongTrinhDTO;
 import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.entity.FileEntity;
 import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.entity.LichSuChinhSuaCongTrinh;
 import com.dado.quanlytailieu.enums.CongTrinhType;
+import com.dado.quanlytailieu.entity.CongTrinh;
 import com.dado.quanlytailieu.repository.LichSuChinhSuaCongTrinhRepository;
 import com.dado.quanlytailieu.service.*;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,10 +53,10 @@ public class CongTrinhController {
     @Autowired
     ExcelService excelService;
 
-//    @GetMapping("/all")
-//    public List<ConstructionDto> getAllConstruction() {
-//        return constructionService.getAllConstruction();
-//    }
+    @GetMapping("/count")
+    public CongTrinhCountDto getAllConstruction() {
+        return congTrinhService.getAllCongTrinhCount();
+    }
 
     @PostMapping("/update/{constructionId}")
     public ResponseEntity<?> updateConstruction(@PathVariable Long constructionId, @RequestBody QuanLyCongTrinhRequest command
@@ -62,7 +65,7 @@ public class CongTrinhController {
     }
 
     @GetMapping(path = "/type")
-    public List<QuanLyCongTrinhDTO> getConstructionByType(@RequestParam CongTrinhType type) {
+    public List<CongTrinhDTO> getConstructionByType(@RequestParam CongTrinhType type) {
         return congTrinhService.getConstructionByType(type);
     }
 
@@ -89,7 +92,7 @@ public class CongTrinhController {
             @RequestParam("type") String type,
             @RequestParam("quyMo") String quyMo,
             @RequestParam("thietBi") String thietBi,
-            @RequestParam("congTrinhLienQuan") List<Long> congTrinhLienQuan,
+            @RequestParam("congTrinhLienQuan") List<String> congTrinhLienQuan,
             @RequestParam("thongTinKhac") String thongTinKhac,
             @RequestParam("soThuTu") String soThuTu,
             MultipartHttpServletRequest request) throws Exception {
@@ -120,7 +123,7 @@ public class CongTrinhController {
             @RequestParam("viTri") String viTri,
             @RequestParam("quyMo") String quyMo,
             @RequestParam("thietBi") String thietBi,
-            @RequestParam("congTrinhLienQuan") List<Long> congTrinhLienQuan,
+            @RequestParam("congTrinhLienQuan") List<String> congTrinhLienQuan,
             @RequestParam("thongTinKhac") String thongTinKhac,
             MultipartHttpServletRequest request) throws Exception {
 
@@ -204,5 +207,25 @@ public class CongTrinhController {
     @GetMapping("/excel/bao-cao-tien-do")
     public void downloadExcelBaoCaoTienDo(HttpServletResponse response, @RequestParam String so, @RequestParam String maCT) throws IOException {
         excelService.downloadExcelBaoCaoTienDo(response, so, maCT);
+    }
+
+    @GetMapping("/excel/ho-so")
+    public void getHoSoExcel(@RequestParam String donViThucHien, HttpServletResponse response) throws IOException {
+        congTrinhService.getHoSoExcel(donViThucHien, response);
+    }
+
+    @GetMapping("/all")
+    public List<CongTrinh> getAllCongTrinh() {
+        return congTrinhService.getAllCongTrinh();
+    }
+
+    @PostMapping("/update/thong-tin")
+    public void getAllCongTrinh(@RequestBody CongTrinh congTrinh) {
+        congTrinhService.save(congTrinh);
+    }
+
+    @GetMapping("/maCT/{maCT}")
+    public CongTrinh getCongTrinhByMaCT(@PathVariable String maCT) {
+        return congTrinhService.getCongTrinhByMaCT(maCT);
     }
 }

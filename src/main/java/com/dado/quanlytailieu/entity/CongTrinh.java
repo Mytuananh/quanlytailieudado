@@ -2,8 +2,9 @@ package com.dado.quanlytailieu.entity;
 
 import com.dado.quanlytailieu.enums.QuanLyTaiSanType;
 import com.dado.quanlytailieu.enums.CongTrinhType;
+import com.dado.quanlytailieu.enums.TrangThaiCongTrinh;
 import com.dado.quanlytailieu.extra.ListLongJsonType;
-import com.dado.quanlytailieu.extra.MapStringStringJsonType;
+import com.dado.quanlytailieu.extra.ListStringJsonType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,9 +30,9 @@ public class CongTrinh {
     String quyMo;        // quy mo
     String thietBi;
 
-    @Type(ListLongJsonType.class)
+    @Type(ListStringJsonType.class)
     @Column(columnDefinition = "jsonb")
-    List<Long> congTrinhLienQuan;
+    List<String> congTrinhLienQuan;
 
     String thongTinKhac;
 
@@ -73,5 +74,6 @@ public class CongTrinh {
 
     String donViThucHien;
     String nguoiQuanLy;
+    TrangThaiCongTrinh trangThaiCongTrinh;
 
 }
