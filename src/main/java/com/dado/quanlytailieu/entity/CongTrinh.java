@@ -52,7 +52,7 @@ public class CongTrinh {
             joinColumns = @JoinColumn(name = "congtrinh_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    List<User> users = new ArrayList<>();
+    List<UserEntity> users = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "congTrinh")

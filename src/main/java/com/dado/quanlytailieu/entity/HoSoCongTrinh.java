@@ -75,14 +75,14 @@ public class HoSoCongTrinh {
 
     @OneToOne
     @JoinColumn(name = "created_user_id",  referencedColumnName = "id")
-    User createdUser;
+    UserEntity createdUser;
 
     @CreatedDate()
     LocalDateTime createdTime = LocalDateTime.now();
 
     @OneToOne
     @JoinColumn(name = "updated_user_id",  referencedColumnName = "id")
-    User updatedUser;
+    UserEntity updatedUser;
 
     @LastModifiedDate
     LocalDateTime updatedTime;

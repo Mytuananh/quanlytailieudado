@@ -3,7 +3,7 @@ import com.dado.quanlytailieu.dao.AuthenticationRequest;
 import com.dado.quanlytailieu.dao.AuthenticationResponse;
 import com.dado.quanlytailieu.dao.RegisterRequest;
 import com.dado.quanlytailieu.entity.Role;
-import com.dado.quanlytailieu.entity.User;
+import com.dado.quanlytailieu.entity.UserEntity;
 import com.dado.quanlytailieu.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +21,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        var user = UserEntity.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
