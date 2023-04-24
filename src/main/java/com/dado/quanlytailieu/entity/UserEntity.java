@@ -25,6 +25,7 @@ public class UserEntity implements UserDetails {
     private String username;
     private String email;
     private String password;
+    private String phone;
     private Role role;
 
     @ManyToMany(mappedBy = "users")

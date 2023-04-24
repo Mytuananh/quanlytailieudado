@@ -14,4 +14,8 @@ public class UserService {
     public UserInfoDTO getUserByUserName(String name) {
         return UserInfoDTO.toUserInfoDTO(userRepository.findByUsername(name));
     }
+
+    public UserInfoDTO getUserByEmail(String email) {
+        return UserInfoDTO.toUserInfoDTO(userRepository.findByEmail(email).orElseThrow());
+    }
 }
