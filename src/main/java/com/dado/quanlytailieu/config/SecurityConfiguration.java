@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/register", "/api/auth/authenticate")
                 .permitAll()
+                .requestMatchers("/socket/**", "/ws/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -45,7 +46,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*"); // Cho phép tất cả các nguồn truy cập
+        configuration.addAllowedOriginPattern("*"); // Cho phép tất cả các nguồn truy cập
         configuration.addAllowedMethod("*"); // Cho phép tất cả các method
         configuration.addAllowedHeader("*"); // Cho phép tất cả các header
 

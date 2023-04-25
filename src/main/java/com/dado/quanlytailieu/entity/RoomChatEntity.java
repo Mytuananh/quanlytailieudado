@@ -4,25 +4,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Table(name = "chat")
-public class ChatEntity {
+public class RoomChatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chatId;        // receiveId
+    private Long id;        // receiveId
 
     private String name;
-//    @Column(name = "sender_id")
-//    private Long senderId;
 
-    @OneToMany(mappedBy = "id")
-    private List<UserEntity> member;
+    @OneToMany(mappedBy = "roomChat")
+    private List<MessageEntity> messages;
+
+    @ManyToMany(mappedBy = "roomChatEntities")
+    private List<UserEntity> userEntityList;
 }

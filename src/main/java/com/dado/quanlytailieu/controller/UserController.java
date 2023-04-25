@@ -1,15 +1,13 @@
 package com.dado.quanlytailieu.controller;
 
 import com.dado.quanlytailieu.dto.UserInfoDTO;
-import com.dado.quanlytailieu.entity.MessageEntity;
+import com.dado.quanlytailieu.entity.UserEntity;
 import com.dado.quanlytailieu.service.JwtService;
 import com.dado.quanlytailieu.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -30,10 +28,9 @@ public class UserController {
     @GetMapping("/present")
     public UserInfoDTO getPresentUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String jwt = (String) authentication.getCredentials();
-        String userEmail = jwtService.extractUsername(jwt);
+        String userEmail = ((UserEntity) authentication.getPrincipal()).getEmail() ;
 
-        return userService.getUserByEmail(userEmail);
+        return userService.getUserInfoDTOByEmail(userEmail);
 
     }
 }
