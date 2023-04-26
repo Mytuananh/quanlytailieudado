@@ -10,8 +10,12 @@ import com.dado.quanlytailieu.entity.Image;
 import com.dado.quanlytailieu.entity.LichSuChinhSuaCongTrinh;
 import com.dado.quanlytailieu.enums.CongTrinhType;
 import com.dado.quanlytailieu.entity.CongTrinh;
+import com.dado.quanlytailieu.enums.QuanLyTaiSanType;
+import com.dado.quanlytailieu.enums.TrangThaiCongTrinh;
+import com.dado.quanlytailieu.repository.CongTrinhRepository;
 import com.dado.quanlytailieu.repository.LichSuChinhSuaCongTrinhRepository;
 import com.dado.quanlytailieu.service.*;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,6 +56,8 @@ public class CongTrinhController {
 
     @Autowired
     ExcelService excelService;
+    @Autowired
+    private CongTrinhRepository congTrinhRepository;
 
     @GetMapping("/count")
     public CongTrinhCountDto getAllConstruction() {
@@ -87,17 +93,17 @@ public class CongTrinhController {
     @PostMapping(value = "/create-cong-trinh")
     public ResponseEntity<Object> createCongTrinh(
 //            @RequestParam("maCT") String maCT,
-            @RequestParam("viTri") String viTri,
-            @RequestParam("name") String name,
-            @RequestParam("type") String type,
-            @RequestParam("quyMo") String quyMo,
-            @RequestParam("thietBi") String thietBi,
-            @RequestParam("congTrinhLienQuan") List<String> congTrinhLienQuan,
-            @RequestParam("thongTinKhac") String thongTinKhac,
-            @RequestParam("soThuTu") String soThuTu,
-            @RequestParam("x") String x,
-            @RequestParam("y") String y,
-            MultipartHttpServletRequest request) throws Exception {
+            @RequestPart("viTri")  String viTri,
+            @RequestPart("name")  String name,
+            @RequestPart("type")  String type,
+            @RequestPart("quyMo")  String quyMo,
+            @RequestPart("thietBi") String thietBi,
+            @RequestPart("congTrinhLienQuan") @Nullable List<String> congTrinhLienQuan,
+            @RequestPart("thongTinKhac") @Nullable String thongTinKhac,
+            @RequestPart("soThuTu") String soThuTu,
+            @RequestPart("x") @Nullable String x,
+            @RequestPart("y") @Nullable String y,
+            @Nullable MultipartHttpServletRequest request) throws Exception {
 
         CongTrinh congTrinhRequest = new CongTrinh();
 //        congTrinhRequest.setMaCT(maCT);
@@ -231,5 +237,23 @@ public class CongTrinhController {
     @GetMapping("/maCT/{maCT}")
     public CongTrinh getCongTrinhByMaCT(@PathVariable String maCT) {
         return congTrinhService.getCongTrinhByMaCT(maCT);
+    }
+
+    @PostMapping(value = "/updateThongTinQuanLyCongTrinh")
+    public ResponseEntity<Object> updateThongTinQuanLyCongTrinh(
+            @RequestParam("maCT") String maCT,
+            @RequestParam("quanLyTaiSanType") @Nullable QuanLyTaiSanType quanLyTaiSanType,
+            @RequestParam("trangThaiCongTrinh") @Nullable TrangThaiCongTrinh trangThaiCongTrinh,
+            @RequestParam("viPhamLanChiem") @Nullable String viPhamLanChiem,
+            @RequestParam("lichSuCT") @Nullable String lichSuCT) {
+
+        CongTrinh congTrinh = congTrinhRepository.getCongTrinhByMaCT(maCT);
+        congTrinh.setQuanLyTaiSanType(quanLyTaiSanType);
+        congTrinh.setTrangThaiCongTrinh(trangThaiCongTrinh);
+//        congTrinhRequest.setViPhamLanChiem(quyMo);
+        congTrinh.setLichSuCT(lichSuCT);
+         congTrinhRepository.save(congTrinh);
+
+        return ResponseEntity.ok(congTrinh);
     }
 }

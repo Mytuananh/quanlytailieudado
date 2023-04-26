@@ -10,6 +10,7 @@ public enum CongTrinhType {
     TRAM_BOM("TB"),
     KENH_XAY("CTTK"),
     KENH_TUOI("KT"),
+    CONG_TRINH_KHAC("CTK"),
     ;
 
     private final String value;
