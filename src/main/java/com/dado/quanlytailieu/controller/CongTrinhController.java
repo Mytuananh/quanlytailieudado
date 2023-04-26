@@ -87,14 +87,16 @@ public class CongTrinhController {
     @PostMapping(value = "/create-cong-trinh")
     public ResponseEntity<Object> createCongTrinh(
 //            @RequestParam("maCT") String maCT,
-            @RequestParam("name") String name,
             @RequestParam("viTri") String viTri,
+            @RequestParam("name") String name,
             @RequestParam("type") String type,
             @RequestParam("quyMo") String quyMo,
             @RequestParam("thietBi") String thietBi,
             @RequestParam("congTrinhLienQuan") List<String> congTrinhLienQuan,
             @RequestParam("thongTinKhac") String thongTinKhac,
             @RequestParam("soThuTu") String soThuTu,
+            @RequestParam("x") String x,
+            @RequestParam("y") String y,
             MultipartHttpServletRequest request) throws Exception {
 
         CongTrinh congTrinhRequest = new CongTrinh();
@@ -106,6 +108,8 @@ public class CongTrinhController {
         congTrinhRequest.setThietBi(thietBi);
         congTrinhRequest.setCongTrinhLienQuan(congTrinhLienQuan);
         congTrinhRequest.setThongTinKhac(thongTinKhac);
+        congTrinhRequest.setLatitude(x);
+        congTrinhRequest.setLongitude(y);
         congTrinhRequest.setMaCT(type + soThuTu);
 
         List<FileEntity> fileEntities = fileService.saveFileForCongtrinh(request.getFiles("files"));
