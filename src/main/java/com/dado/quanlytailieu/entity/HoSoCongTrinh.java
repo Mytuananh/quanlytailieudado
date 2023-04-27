@@ -1,8 +1,13 @@
 package com.dado.quanlytailieu.entity;
 
+import com.dado.quanlytailieu.enums.HoSoCTType;
+import com.dado.quanlytailieu.enums.NguonVonEnum;
 import com.dado.quanlytailieu.enums.TinhTrangTrienKhai;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,6 +18,9 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class HoSoCongTrinh {
 
     @Id
@@ -33,8 +41,8 @@ public class HoSoCongTrinh {
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     List<FileEntity> files = new ArrayList<>();     // Ho so phap ly
 
-    @ManyToOne
-    DonViThiCong donViThiCong;      // Don vi thi cong
+//    @ManyToOne
+//    DonViThiCong donViThiCong;      // Don vi thi cong
 
     LocalDate thoiGianThiCongFrom;     // thoi gian thi cong
     LocalDate thoiGianThiCongTo;
@@ -45,9 +53,9 @@ public class HoSoCongTrinh {
     @JoinColumn(name = "tien_do_ho_so_id", referencedColumnName = "id")
     TienDoHoSo tienDoHoSo;      // Tien do ho so
 
-    @OneToOne
-    @JoinColumn(name = "tien_do_thi_cong_id", referencedColumnName = "id")
-    TienDoThiCong tienDoThiCong;
+//    @OneToOne
+//    @JoinColumn(name = "tien_do_thi_cong_id", referencedColumnName = "id")
+//    TienDoThiCong tienDoThiCong;
 
     String duToan;
 
@@ -72,6 +80,43 @@ public class HoSoCongTrinh {
     FileEntity baoCaoBienPhongFile;        // Bao cao bien phong
 
     String comment;
+
+    String ctName;
+    String maHS;
+    String nameHS;
+    String loaiHS;
+    String namTaoHS;
+    String namHoanThanhHS;
+    String donViLapHS;
+
+    // man 3b create/HoSoCT
+    HoSoCTType hoSoCTType;
+    String diaDiem;
+    String latitude;
+    String longitude;
+    String namThucHien;
+    String donViLapHoSO;
+    NguonVonEnum nguonVonEnum;
+    String quyetDinhPheDuyetDuToan;
+    @OneToOne
+    @JoinColumn(name = "file_quyetdinhpheduyetdutoan_id")
+    FileEntity fileQuyetDinhPheDuyetDuToan;
+    String giaTriDuDoan;
+    String donViThiCong;
+    LocalDate thoiGianThiCongStart;
+    LocalDate thoiGianThiCongEnd;
+    String tienDoThiCong;
+    String quyetDinhPheDuyetQuyetToan;
+    @OneToOne
+    @JoinColumn(name = "file_quyetdinhpheduyetquyettoan_id")
+    FileEntity fileQuyetDinhPheDuyetQuyetToan;
+    String giaTriQuyetToan;
+    String nguoiPhuTrach; // TODO: -> UserEntity
+    String ghiChu;
+
+    @OneToMany
+    @JoinColumn(name = "file_hinh_anh_hs_ct_id",  referencedColumnName = "id")
+    List<FileEntity> hinhAnhHoSoCT;
 
     @OneToOne
     @JoinColumn(name = "created_user_id",  referencedColumnName = "id")

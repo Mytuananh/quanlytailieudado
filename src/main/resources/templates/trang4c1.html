@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="trang4c1.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaOulQACiJzBfqumbsqg_-vKha8fCnL-s"
+            async defer></script>
+
+
+
+</head>
+<body>
+<div class="nav-bar">
+    <div class="logo-qlct">
+        <div class="img-logo">
+            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+        </div>
+        <div class="title-logo">TLĐ</div>
+    </div>
+    <div class="title-qlct">
+        <div class="title-qlct-1"><p style="cursor: pointer">Quản lý doanh nghiệp</p></div>
+        <div class="title-qlct-2"><p style="cursor: pointer">Thông báo nội bộ</p></div>
+        <div class="title-qlct-3"><p style="cursor: pointer">Tin tức hoạt động</p></div>
+    </div>
+    <div class="ava-qlct">
+        <div class="map">
+            <div class="map-icon">
+                <div class="border-map">
+                    <a href="https://bom.so/xMSl68"><i class="fas fa-map-marked-alt" style="color: #4B5580;" title="Bản đồ"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mess">
+            <div class="messenger-icon">
+                <div class="border-mess">
+                    <i class="fab fa-facebook-messenger" style="color: #4B5580;" title="Tin nhắn"></i>
+                    <span class="notification-badge"></span>
+                </div>
+            </div>
+        </div>
+        <div class="content-container hidden" id="message-list">
+            <h2>CHAT</h2>
+            <input type="text" class="search-input" placeholder="Tìm kiếm...">
+            <!-- Ví dụ cho tin nhắn chưa đọc -->
+            <div class="message-item unread" data-username="Khánh Trắng" data-avatar="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png">
+                <div class="avatar-wrapper">
+                    <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Avatar" class="avatar">
+                    <div class="online-status"></div>
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">Khánh Trắng</div>
+                    <div class="message-text">Bạn: alo</div>
+                </div>
+            </div>
+            <div class="message-item unread" data-username="Mai Phương" data-avatar="anh4/anh-nen-mau-trang-001.jpg">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                    <div class="online-status"></div>
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">Mai Phương</div>
+                    <div class="message-text">Mai e cho a 50 củ nhé</div>
+                </div>
+            </div>
+            <div class="message-item unread" data-username="Toán Vũ" data-avatar="anh4/anh-nen-mau-trang-001.jpg">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">Toán Vũ</div>
+                    <div class="message-text">Bạn: E gửi rồi c nhé</div>
+                </div>
+            </div>
+            <div class="message-item unread" data-username="Phương Bùi" data-avatar="anh4/anh-nen-mau-trang-001.jpg">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                    <div class="online-status"></div>
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">Phương Bùi</div>
+                    <div class="message-text">Làm hộ c chứ</div>
+                </div>
+            </div>
+            <div class="message-item" data-username="Tào Tuyết Cần" data-avatar="anh4/anh-nen-mau-trang-001.jpg">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                    <div class="online-status"></div>
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">Tào Tuyết Cần</div>
+                    <div class="message-text">Hồng Lâu Mộng không</div>
+                </div>
+            </div>
+            <div class="message-item" data-username="Ngô Thừa Ân" data-avatar="anh4/anh-nen-mau-trang-001.jpg">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                    <div class="online-status"></div>
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">Ngô Thừa Ân</div>
+                    <div class="message-text">Tây Du Kí không chú</div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="chat-box chat-window" id="chat-box" style="display: none;">
+                <div class="chat-header">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                    <div class="sender-name" >Tên người dùng</div>
+                    <div class="online-status"></div>
+                    <button class="minimize-button">&#8722;</button>
+                    <button class="close-chat">&times;</button>
+                </div>
+                <div class="chat-body" id="chat-body">
+                    <!-- Trong phần chat-body -->
+                    <div class="chat-message user-message">
+                        <div class="message-text">Xin chào, tôi có thể giúp gì cho bạn?</div>
+                        <div class="message-time">9:00 AM</div>
+                    </div>
+                    <div class="chat-message my-message">
+                        <div class="message-text">Cảm ơn, tôi muốn hỏi về sản phẩm của bạn.</div>
+                        <div class="message-time">9:01 AM</div>
+                    </div>
+                </div>
+                <div class="chat-footer">
+                    <div class="file-upload">
+                        <input type="file" id="file-input" hidden>
+                        <label for="file-input">
+                            <i class="fas fa-paperclip"></i>
+                        </label>
+                    </div>
+                    <div class="image-upload">
+                        <input type="file" id="image-input" accept="image/*" hidden>
+                        <label for="image-input">
+                            <i class="fas fa-image"></i>
+                        </label>
+                    </div>
+                    <input type="text" class="chat-input" placeholder="Nhập tin nhắn..." onkeypress="handleEnter(event)">
+                </div>
+            </div>
+        </div>
+        <div class="notification">
+            <div class="messenger-icon">
+                <div class="border-notification">
+                    <i class="fas fa-bell" style="color: #4B5580;" title="Thông báo"></i>
+                    <span class="notification-badge"></span>
+                </div>
+            </div>
+        </div>
+        <div class="content-container hidden" id="notification-list">
+            <h2>Thông báo</h2>
+            <div class="notification-item unread">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã bình luận về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        15 phút trước
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã thả haha về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        16 phút trước
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã chọc về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        15 phút trước
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã bình luận về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        15 phút trước
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã bình luận về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        15 phút trước
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã bình luận về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        15 phút trước
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="avatar-wrapper">
+                    <img src="anh4/anh-nen-mau-trang-001.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Toán Vũ</strong> đã bình luận về bài viết của bạn.
+                    </div>
+                    <div class="notification-time">
+                        15 phút trước
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ava">
+            <img src="anh4/anh-nen-mau-trang-001.jpg" alt=Error>
+        </div>
+        <div class="user">Nguyễn Anh Tuấn</div>
+        <div class="side-menu" id="menu-ellipsis-nav">
+            <div class="ellipsis-btn-nav" ><i class="fas fa-align-justify" style="color: #838383B2"></i></div>
+            <div class="menu-ellipsis1-nav">
+                <a class="menu-item-ell-nav">Thông tin cá nhân</a>
+                <a class="menu-item-ell-nav">Thay đổi mật khẩu</a>
+                <a class="menu-item-ell-nav">Đăng ký</a>
+                <a class="menu-item-ell-nav">Đăng Xuất</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="icon-wrapper-new-mess">
+        <div class="icon icon-primary">
+            <i class="fas fa-user-friends" style="color: #4B5580;" title="Danh sách"></i>
+        </div>
+        <div class="friends-list">
+            <div class="tabs-mess">
+                <div class="tab-mess active" id="personal-tab">Liên lạc cá nhân</div>
+                <span class="separator">|</span>
+                <div class="tab-mess" id="group-tab">Nhóm</div>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm bạn bè">
+                <span class="vertical-ellipsis"></span>
+            </div>
+            <div class="tab-content-mess active" id="personal-content">
+                <div class="friends-container">
+                    <div class="friend">
+                        <div class="friend-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="friend-status online"></span>
+                        </div>
+                        <div class="friend-info">
+                            <span class="friend-name">Nguyễn Văn A</span><br>
+                            <span class="friend-status-text" data-status="Online"></span>
+                        </div>
+                    </div>
+                    <div class="friend">
+                        <div class="friend-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="friend-status offline"></span>
+                        </div>
+                        <div class="friend-info">
+                            <span class="friend-name">Trần Thị B</span><br>
+                            <span class="friend-status-text" data-status="Offline"></span>
+                        </div>
+                    </div>
+                    <div class="friend">
+                        <div class="friend-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="friend-status online"></span>
+                        </div>
+                        <div class="friend-info">
+                            <span class="friend-name">Lê Hoàng C</span><br>
+                            <span class="friend-status-text" data-status="Online"></span>
+                        </div>
+                    </div>
+                    <div class="friend">
+                        <div class="friend-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="friend-status offline"></span>
+                        </div>
+                        <div class="friend-info">
+                            <span class="friend-name">Nguyễn Thị E</span><br>
+                            <span class="friend-status-text" data-status="Offline"></span>
+                        </div>
+                    </div>
+                    <div class="friend">
+                        <div class="friend-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="friend-status online"></span>
+                        </div>
+                        <div class="friend-info">
+                            <span class="friend-name">Mộng Thị F</span><br>
+                            <span class="friend-status-text" data-status="Online"></span>
+                        </div>
+                    </div>
+                    <div class="friend">
+                        <div class="friend-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="friend-status offline"></span>
+                        </div>
+                        <div class="friend-info">
+                            <span class="friend-name">Tạ Thị Lạng</span><br>
+                            <span class="friend-status-text" data-status="Offline"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content-mess" id="group-content">
+                <div class="groups-container" >
+                    <div class="group">
+                        <div class="group-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="group-status"></span>
+                        </div>
+                        <div class="group-info">
+                            <span class="group-name">Hội ăn uống</span><br>
+                            <span class="group-number" data-members="5" data-members-online="2"></span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="group-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="group-status"></span>
+                        </div>
+                        <div class="group-info">
+                            <span class="group-name">Hội số học</span><br>
+                            <span class="group-number" data-members="4" data-members-online="2"></span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="group-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="group-status"></span>
+                        </div>
+                        <div class="group-info">
+                            <span class="group-name">Hội bóc phốt</span><br>
+                            <span class="group-number" data-members="6" data-members-online="0"></span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="group-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="group-status"></span>
+                        </div>
+                        <div class="group-info">
+                            <span class="group-name">Hội xàm</span><br>
+                            <span class="group-number" data-members="7" data-members-online="5"></span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="group-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="group-status"></span>
+                        </div>
+                        <div class="group-info">
+                            <span class="group-name">Hội ăm cơm trước kẻng</span><br>
+                            <span class="group-number" data-members="2" data-members-online="0"></span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="group-avatar">
+                            <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                            <span class="group-status"></span>
+                        </div>
+                        <div class="group-info">
+                            <span class="group-name">Hội bán nhà</span><br>
+                            <span class="group-number" data-members="40" data-members-online="1"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="icon icon-secondary">
+            <i class="fas fa-pencil-alt" style="color: #4B5580;" title="Tin nhắn mới"></i>
+        </div>
+        <div class="new-mess">
+            <h2>Tin nhắn mới</h2>
+            <div class="search-box-new-mess">
+                <input type="text" placeholder="Đến:" id="search-input-new">
+            </div>
+            <div class="friend-list-new" id="friend-list-new">
+                <div class="friend">
+                    <div class="friend-avatar">
+                        <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                        <span class="friend-status offline"></span>
+                    </div>
+                    <div class="friend-info">
+                        <span class="friend-name">Trần Thị B</span><br>
+                        <span class="friend-status-text" data-status="Offline"></span>
+                    </div>
+                </div>
+                <div class="friend">
+                    <div class="friend-avatar">
+                        <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                        <span class="friend-status offline"></span>
+                    </div>
+                    <div class="friend-info">
+                        <span class="friend-name">Méng Cù Lèng</span><br>
+                        <span class="friend-status-text" data-status="Offline"></span>
+                    </div>
+                </div>
+                <div class="friend">
+                    <div class="friend-avatar">
+                        <img src="anh4/Logo%20Cty%20(Chuan)%20-%20none%20background%201.png" alt="Error">
+                        <span class="friend-status online"></span>
+                    </div>
+                    <div class="friend-info">
+                        <span class="friend-name">Lò Như Chí</span><br>
+                        <span class="friend-status-text" data-status="Online"></span>
+                    </div>
+                </div>
+                <!-- thêm các mục bạn bè ở đây -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="body-qlct">
+    <div class="side-bar-1">
+        <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+        <nav>
+            <ul>
+                <li><a class="dropdown-toggle"><i class="fas fa-industry"></i><span class="toggle-text">Quản lý công trình</span></a>
+                    <ul class="dropdown-menu" >
+                        <li><a href="#">Thông tin chung</a></li>
+                        <li><a href="#">Thông tin quản lý</a></li>
+                        <li><a href="#">Hồ sơ công trình</a></li>
+                        <li><a href="#">Hồ sơ vi phạm</a></li>
+                        <li><a href="#">Hồ sơ vận hành</a></li>
+                        <li><a href="#">Hồ sơ khác</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="dropdown-toggle"><i class="fas fa-chart-line"></i><span class="toggle-text">Quản lý SXKD&ĐTPT</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Dropdown item 1</a></li>
+                        <li><a href="#">Dropdown item 2</a></li>
+                        <li><a href="#">Dropdown item 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="dropdown-toggle"><i class="fas fa-users"></i><span class="toggle-text">Quản lý nhân sự</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="toggle-text">Dropdown item 1</a></li>
+                        <li><a href="#" class="toggle-text">Dropdown item 2</a></li>
+                        <li><a href="#" class="toggle-text">Dropdown item 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="dropdown-toggle"><i class="fas fa-money-check"></i><span class="toggle-text">Quản lý tài sản</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Dropdown item 1</a></li>
+                        <li><a href="#">Dropdown item 2</a></li>
+                        <li><a href="#">Dropdown item 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content" id="content">
+        <div class="past-1">
+            <div class="past-border">
+            <div class="past-1-1">Quản lý công trình > Hồ sơ công trình > Cống dưới đê > Cống Trung Trang</div>
+            <div class="past-1-2">
+                <div class="past-title-1">
+                    <div class="title-tit-1">CỐNG TRUNG TRANG - HỒ SƠ CÔNG TRÌNH</div>
+                    <div class="title-tit-2">Cập nhật: 15:02 ngày 10/3/2023  |  bởi Nguyễn Anh Tuấn (KHKT)</div>
+                </div>
+                <div class="past-title-2" id="menu-ellipsis-past">
+                    <div class="ellipsis-menu" ><i id="addNewBtn11" class="fas fa-ellipsis-v" style="color: #ffffff;"></i></div>
+                    <div class="menu-ellipsis1-past" id="menu-list">
+                        <a class="menu-item-ell-past"><i class="fas fa-file-alt"></i> Xuất báo cáo</a>
+                        <a class="menu-item-ell-past" id="menu-ellipsis1-past1"><i class="fas fa-file-alt"></i> Cập nhật tiến độ</a>
+                        <a class="menu-item-ell-past" id="menu-ellipsis1-past"><i class="fas fa-pencil-alt"></i> Chỉnh sửa/cập nhật</a>
+                        <a class="menu-item-ell-past"><i class="fas fa-trash"></i> Xóa hồ sơ</a>
+                    </div>
+                    <!-- The Modal Thong Tin Chung -->
+                    <div id="myModalHS" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="infor-CT">
+                                <div class="name-CT">Hồ sơ:
+                                    <span class="name-1-CT" style="font-size: 14px">Bảo dưỡng cống Trung Trang 2023</span>
+                                </div>
+                            </div>
+                            <div class="form-start">
+                                <table style="overflow: auto">
+                                    <thead>
+                                    <tr>
+                                        <th>TT</th>
+                                        <th>Hạng mục</th>
+                                        <th>Nhập thông tin mô tả</th>
+                                        <th>Nhập dữ liệu</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Dòng 1 -->
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Công trình sửa chữa</td>
+                                        <td>
+                                            <div class="select-wrapper2">
+                                                <select id="project-name-did-hs-nam-2025" name="project-name-did-hs-nam-2025" class="select">
+                                                    <option>Cống Trung Trang</option>
+                                                    <option>Cống Cổ Tiểu</option>
+                                                    <option>Cống Táo</option>
+                                                    <option>Cống Mai Dương</option>
+                                                    <option>Cống Cao Mật</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>Mã CT: 01</td>
+                                    </tr>
+                                    <!-- Dòng 2 -->
+                                    <tr>
+                                        <td>02</td>
+                                        <td>Loại hồ sơ</td>
+                                        <td>
+                                            <div class="select-wrapper2">
+                                                <select id="project-type-hs-2025" name="project-type-hs-nam-2025" class="select">
+                                                    <option>Sửa chữa thường xuyên (HS SCTX)</option>
+                                                    <option>Sửa chữa lớn (SCL)</option>
+                                                    <option>Dự Án</option>
+                                                </select>
+                                                <span class="error-message" id="project-type-error-hs-nam-2025"></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 3 -->
+                                    <tr>
+                                        <td>03</td>
+                                        <td>Mã hồ sơ</td>
+                                        <td>
+                                            <input type="text" id="project-code-hs-nam-2025" name="project-code-hs-nam-2025" placeholder="01.MHS">
+                                            <span class="error-message" id="project-code-error-hs-nam-2025"></span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 4 -->
+                                    <tr>
+                                        <td>04</td>
+                                        <td>Tên hồ sơ</td>
+                                        <td>
+                                            <input type="text" id="project-name-hs-nam-2025" name="project-name-hs-nam-2025">
+                                            <span class="error-message" id="project-name-error-hs-nam-2025"></span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 5 -->
+                                    <tr>
+                                        <td>05</td>
+                                        <td>Địa điểm</td>
+                                        <td>
+                                            <input type="text" id="project-location-name-hs-nam-2025" name="project-location-name-hs-nam-2025">
+                                            <span class="error-message" id="project-location-name-error-hs-nam-2025"></span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 6 -->
+                                    <tr>
+                                        <td></td>
+                                        <td>Tọa độ</td>
+                                        <td><div class="coordinates">
+                                            <input type="text" placeholder="Tọa độ X" id="project-location-x-hs-nam-2025" name="project-location-x-hs-nam-2025">
+                                            <input type="text" placeholder="Tọa độ Y" id="project-location-y-hs-nam-2025" name="project-location-y-hs-nam-2025">
+                                            <span class="error-message" id="project-location-error-hs-nam-2025"></span>
+                                        </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 7 -->
+                                    <tr>
+                                        <td>06</td>
+                                        <td>Năm thực hiện</td>
+                                        <td>
+                                            <input type="date" id="project-time-hs-nam-2025" name="project-time-hs-khac-2025">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 8 -->
+                                    <tr>
+                                        <td>07</td>
+                                        <td>Đơn vị lập hồ sơ</td>
+                                        <td>
+                                            <input type="text" id="project-dvlhs-hs-nam-2025" name="project-dvlhs-hs-nam-2025">
+                                            <span class="error-message" id="project-dvlhs-error-hs-nam-2025"></span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 9 -->
+                                    <tr>
+                                        <td>08</td>
+                                        <td>Nguồn vốn</td>
+                                        <td>
+                                            <div class="select-wrapper2">
+                                                <select id="project-von-hs-nam-2025" name="project-von-hs-nam-2025" class="select">
+                                                    <option>Nguồn hỗ trợ SC TSCĐ</option>
+                                                    <option>Nguồn thu từ SPDVTL</option>
+                                                    <option>Nguồn vốn điều lệ</option>
+                                                    <option>Nguồn khác</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 10 -->
+                                    <tr>
+                                        <td>09</td>
+                                        <td>Quyết định phê duyệt dự toán</td>
+                                        <td>
+                                            <div class="coordinates">
+                                                <input type="text" id="project-qd-hs-nam-2025" name="project-qd-hs-nam-2025" placeholder="122/QĐ-TLĐ">
+                                                <input type="date" id="project-date-hs-nam-2025" name="project-date-hs-nam-2025">
+
+                                            </div>
+                                        </td>
+                                        <td> <input type="file" id="file-qdpddt" name="file-qdpddt" multiple></td>
+                                    </tr>
+                                    <!-- Dòng 11 -->
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Giá trị dự toán</td>
+                                        <td>
+                                            <input type="text" id="project-money-dt-hs-nam-2025" name="project-money-dt-hs-nam-2025" placeholder="100.000.000">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 12 -->
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Đơn vị thi công</td>
+                                        <td>
+                                            <input type="text" id="project-dvtc-hs-nam-2025" name="project-dvtc-hs-nam-2025" placeholder="Xí nghiệp xây lắp">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 13 -->
+                                    <tr>
+                                        <td>12</td>
+                                        <td>Thời gian thi công</td>
+                                        <td>
+                                            <div class="select-wrapper">
+                                                <span>Từ:</span>
+                                                <input type="date" id="project-date-start-hs-nam-2025" name="project-date-start-hs-nam-2025">
+                                                <span>Đến:</span>
+                                                <input id="project-date-end-nam-2025" name="project-date-end-nam-2025" type="date">
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 14 -->
+                                    <tr>
+                                        <td>13</td>
+                                        <td>Tiến độ thi công</td>
+                                        <td>
+                                            <div class="select-wrapper">
+                                                <select id="project-tdtc-hs-nam-2025" name="project-tdtc-hs-nam-2025" class="select">
+                                                    <option>Chưa thi công</option>
+                                                    <option>Thi công được 10%</option>
+                                                    <option>Thi công được 15%</option>
+                                                    <option>Thi công được 20%</option>
+                                                    <option>Thi công được 25%</option>
+                                                    <option>Thi công được 30%</option>
+                                                    <option>Thi công được 35%</option>
+                                                    <option>Thi công được 40%</option>
+                                                    <option>Thi công được 45%</option>
+                                                    <option>Thi công được 50%</option>
+                                                    <option>Thi công được 55%</option>
+                                                    <option>Thi công được 60%</option>
+                                                    <option>Thi công được 65%</option>
+                                                    <option>Thi công được 70%</option>
+                                                    <option>Thi công được 75%</option>
+                                                    <option>Thi công được 80%</option>
+                                                    <option>Thi công được 85%</option>
+                                                    <option>Thi công được 90%</option>
+                                                    <option>Thi công được 95%</option>
+                                                    <option>Đã thi công xong</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 15 -->
+                                    <tr>
+                                        <td>14</td>
+                                        <td>Quyết định phê duyệt quyết toán</td>
+                                        <td>
+                                            <div class="coordinates">
+                                                <input type="text" id="project-qdqt-hs-nam-2025" name="project-qd-hs-nam-2025" placeholder="122/QĐ-TLĐ">
+                                                <input type="date" id="project-date-qdqt-hs-nam-2025" name="project-date-hs-nam-2025">
+
+                                            </div>
+                                        </td>
+                                        <td><input type="file" id="file-qdpdqt" name="file-qdpdqt" multiple></td>
+                                    </tr>
+                                    <!-- Dòng 16-->
+                                    <tr>
+                                        <td>15</td>
+                                        <td>Giá trị quyết toán</td>
+                                        <td>
+                                            <input type="text" id="project-gtqt-hs-nam-2025" name="project-gtqt-hs-nam-2025" placeholder="90.000.000">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 17-->
+                                    <tr>
+                                        <td>15</td>
+                                        <td>Người phụ trách</td>
+                                        <td>
+                                            <input type="text" id="project-npt-hs-nam-2025" name="project-npt-hs-nam-2025" placeholder="Nguyễn Văn A">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 18-->
+                                    <tr>
+                                        <td>16</td>
+                                        <td>Ghi chú</td>
+                                        <td>
+                                            <input type="text" id="project-note-hs-nam-2025" name="project-note-hs-nam-2025" placeholder="Viết gì đó...">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Dòng 19-->
+                                    <tr>
+                                        <td>17</td>
+                                        <td>Thông tin hình ảnh</td>
+                                        <td>
+                                            <select id="imageFiles2025" multiple></select>
+                                            <button onclick="removeSelectedImage2025()">Xóa ảnh</button>
+                                        </td>
+                                        <td>
+                                            <input type="file" id="imageInput2025" name="imageInput" onchange="updateImageOptions2025()" multiple>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="save-noti">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Dòng 1 -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            Ghi chú: <input type="text">
+                                        </td>
+                                        <td>
+                                            Thông báo tới:
+                                            <select class="select">
+                                                <option>Không thông báo</option>
+                                                <option>Toàn công ty</option>
+                                                <option>Ban giám đốc</option>
+                                                <option>Phòng Kế hoạch - kỹ thuật</option>
+                                                <option>Trà (PTP KHKT)</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="butt-can" id="cancelBtn-1">Hủy</button>
+                                            <button type="submit" class="butt-sav" id="saveBtn-1">Lưu lại</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="myModalTD" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="closeTD">&times;</span>
+                            <div class="infor-CT">
+                                <div class="name-CT">Hồ sơ:
+                                    <span class="name-1-CT" style="font-size: 14px">Bảo dưỡng cống Trung Trang 2023</span>
+                                </div>
+                            </div>
+                            <div class="form-start">
+                                <table style="overflow: auto">
+                                    <thead>
+                                    <tr>
+                                        <th>TT</th>
+                                        <th>Ngày tháng năm</th>
+                                        <th>Nội dung công việc thực hiện</th>
+                                        <th>Tình trạng nghiệm thu</th>
+                                        <th>Chất lượng công trình</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Ghi chú</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Dòng 1 -->
+                                    <tr>
+                                        <td>01</td>
+                                        <td><input type="date" id="date-td"></td>
+                                        <td><input type="text" id="noi-dung" placeholder="Nội dung công việc..."></td>
+                                        <td><input type="text" id="tinh-trang" placeholder="Tình trạng nghiệm thu..."></td>
+                                        <td><input type="text" id="chat-luong" placeholder="Chất lượng công trình..."></td>
+                                        <td><input type="file" id="imageInput-1" name="imageInput"multiple></td>
+                                        <td><input type="text" id="ghi-chu" placeholder="Nội dung ghi chú..."></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="save-noti">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Dòng 1 -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            Ghi chú: <input type="text">
+                                        </td>
+                                        <td>
+                                            Thông báo tới:
+                                            <select class="select">
+                                                <option>Không thông báo</option>
+                                                <option>Toàn công ty</option>
+                                                <option>Ban giám đốc</option>
+                                                <option>Phòng Kế hoạch - kỹ thuật</option>
+                                                <option>Trà (PTP KHKT)</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="butt-can" id="cancelBtn-2">Hủy</button>
+                                            <button type="submit" class="butt-sav" id="saveBtn-2">Lưu lại</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="past-1-3">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Hạng mục</th>
+                        <th>Mô tả</th>
+                        <th>Dữ liệu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td style="text-align: left">Mã công trình(ID)</td>
+                        <td>C04</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>02</td>
+                        <td style="text-align: left">Tên công trình</td>
+                        <td>Cống Trung Trang</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>03</td>
+                        <td style="text-align: left">Loại hồ sơ</td>
+                        <td>Sửa chữa thường xuyên (HS SCTX)</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>04</td>
+                        <td style="text-align: left">Mã hồ sơ</td>
+                        <td>C04.01</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>05</td>
+                        <td style="text-align: left">Tên hồ sơ</td>
+                        <td>Bảo dưỡng cống Trung Trang 2023</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>06</td>
+                        <td style="text-align: left">Vị trí/địa điểm</td>
+                        <td>Tả Văn Úc - xã Quang Hưng, huyện An Lão</td>
+                        <td style="cursor: pointer; font-style: italic; color: #3600D0; font-size: 14px" id="maps-link">Xem Gmaps</td>
+                    </tr>
+                    <tr>
+                        <td>07</td>
+                        <td style="text-align: left">Đơn vị lập hồ sơ</td>
+                        <td>Phòng KHKT</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>08</td>
+                        <td style="text-align: left">Người phụ trách</td>
+                        <td>Nguyễn Anh Tuấn</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>09</td>
+                        <td style="text-align: left">Quyết định phê duyệt dự toán</td>
+                        <td>122/QĐ-TLĐ ngày 10/01/2023</td>
+                        <td style="cursor: pointer; font-style: italic; color: #3600D0">Xem file</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td style="text-align: left">Giá trị dự toán</td>
+                        <td>120.000.000</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td style="text-align: left">Nguồn vốn</td>
+                        <td>Nguồn thu từ sản phẩm dịch vụ thủy lợi</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td style="text-align: left">Đơn vị thi công</td>
+                        <td>Trạm khai thác CTTL Trung Trang</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td style="text-align: left">Thời gian thi công</td>
+                        <td>Từ ngày 01/01/2023 đến 01/05/2023</td>
+                        <td><input type="checkbox" class="custom-checkbox" id="checkbox1">
+                            <label for="checkbox1">Thi công quá thời gian</label></td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td style="text-align: left">Tiến độ thi công</td>
+                        <td>Thi công được 80%</td>
+                        <td style="cursor: pointer; font-style: italic; color: blue; ">Xem tiến độ</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td style="text-align: left">Quyết định phê duyệt quyết toán</td>
+                        <td>125/QĐ-TLĐ ngày 10/05/2023</td>
+                        <td style="cursor: pointer; font-style: italic; color: #3600D0">Xem file</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td style="text-align: left">Giá trị quyết toán</td>
+                        <td>120.000.000</td>
+                        <td>-</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+        <div class="past-2">
+            <div class="infor-1">
+                <div class="information">
+                <div class="name-ct">Hồ sơ liên quan: cống Trung Trang</div>
+                <div class="table-name-ct">
+                    <table class="table-tab" style="margin-top: 0">
+                    <tbody style="font-weight: 600" >
+                    <tr style="padding: 0; background-color: white">
+                        <td style="text-align: left; padding: 0">01</td>
+                        <td style="text-align: left; color: red; cursor: pointer">Thiết lập trạm điều kiển cống dưới đê (cống Trung Trang, cống Cổ Tiểu 2, Cổ Tiểu 3)</td>
+                        <td style="text-align: right;font-weight: 400;font-size: 13px;line-height: 13px; padding: 0;font-style: italic;">2023</td>
+                    </tr>
+                    <tr style="padding: 0; background-color: white">
+                        <td style="text-align: left; padding: 0">02</td>
+                        <td style="text-align: left; color: red; cursor: pointer">Bảo dưỡng cống Trung Trung vụ chiêm 2022</td>
+                        <td style="text-align: right;font-weight: 400;font-size: 13px;line-height: 13px; padding: 0;font-style: italic;">2022</td>
+                    </tr>
+                    <tr style="padding: 0; background-color: white">
+                        <td style="text-align: left; padding: 0">03</td>
+                        <td style="text-align: left; color: red; cursor: pointer">Sửa chữa cánh cống Trung Trang</td>
+                        <td style="text-align: right;font-weight: 400;font-size: 13px;line-height: 13px; padding: 0;font-style: italic;">2019</td>
+                    </tr>
+                    <tr style="padding: 0; background-color: white">
+                        <td style="text-align: left; padding: 0">04</td>
+                        <td style="text-align: left; color: red; cursor: pointer">Sửa chữa hèm cống Trung Trang</td>
+                        <td style="text-align: right;font-weight: 400;font-size: 13px;line-height: 13px; padding: 0;font-style: italic;">2020</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+            </div>
+            <div class="infor-2">
+                <div class="infor-2-1">
+                <div class="tabs-information">
+                    <div class="tab-infor active" id="files-tab">Files</div>
+                    <span class="separator">|</span>
+                    <div class="tab-infor" id="images-tab">Ảnh</div>
+                    <span class="separator" style="display: none">|</span>
+                    <div class="tab-infor" id="links-tab" style="display: none">Links</div>
+                    <span class="separator">|</span>
+                    <div class="tab-infor" id="maps-tab">Maps</div>
+                    <span class="separator">|</span>
+                    <div class="tab-infor" id="shares-tab">Chia sẻ</div>
+                    <span class="separator">|</span>
+                    <div class="tab-infor" id="histories-tab">Lịch sử cập nhật</div>
+                </div>
+                <div class="tab-content-infor active" id="file-content">
+                    <div class="tit-file-hsct-1">
+                    <div class="tit-tit-1">Mục 09: Quyết định phê duyệt dự toán</div>
+                    <div class="tit-tit-2">
+                        <div class="tit-2-2">
+                            <div class="tit-img">
+                                <div class="border-tit-img">PDF</div>
+                            </div>
+                            <div class="tit-cont">Quyết định 3802/QĐ-UBND v/v phê duyệt thuyết minh dự án KHCN cấp thành phố DA873</div>
+                            <div class="tit-icon">
+                                <div class="tit-watch">
+                                    <div class="icon-1-tit"><i class="fas fa-eye" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Xem</div>
+                                </div>
+                                <div class="tit-down">
+                                    <div class="icon-1-tit"><i class="fas fa-arrow-circle-down" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Tải về</div>
+                                </div>
+                            </div>
+                            <div class="tit-user">
+                                <div class="tit-user-one">Nguyễn Anh Tuấn</div>
+                                <div class="tit-user-time">15:02 ngày 10/3/2023</div>
+                            </div>
+                        </div>
+                        <div class="tit-2-2">
+                            <div class="tit-img">
+                                <div class="border-tit-img-1">Word</div>
+                            </div>
+                            <div class="tit-cont">Quyết định 3802/QĐ-UBND v/v phê duyệt thuyết minh dự án KHCN cấp thành phố DA873</div>
+                            <div class="tit-icon">
+                                <div class="tit-watch">
+                                    <div class="icon-1-tit"><i class="fas fa-eye" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Xem</div>
+                                </div>
+                                <div class="tit-down">
+                                    <div class="icon-1-tit"><i class="fas fa-arrow-circle-down" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Tải về</div>
+                                </div>
+                            </div>
+                            <div class="tit-user">
+                                <div class="tit-user-one">Nguyễn Anh Tuấn</div>
+                                <div class="tit-user-time">15:02 ngày 10/3/2023</div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="tit-file-hsct-2">
+                    <div class="tit-tit-1">Mục 14: Quyết định phê duyệt quyết toán</div>
+                    <div class="tit-tit-2">
+                        <div class="tit-2-2">
+                            <div class="tit-img">
+                                <div class="border-tit-img">PDF</div>
+                            </div>
+                            <div class="tit-cont">Quyết định 3802/QĐ-UBND v/v phê duyệt thuyết minh dự án KHCN cấp thành phố DA873</div>
+                            <div class="tit-icon">
+                                <div class="tit-watch">
+                                    <div class="icon-1-tit"><i class="fas fa-eye" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Xem</div>
+                                </div>
+                                <div class="tit-down">
+                                    <div class="icon-1-tit"><i class="fas fa-arrow-circle-down" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Tải về</div>
+                                </div>
+                            </div>
+                            <div class="tit-user">
+                                <div class="tit-user-one">Nguyễn Anh Tuấn</div>
+                                <div class="tit-user-time">15:02 ngày 10/3/2023</div>
+                            </div>
+                        </div>
+                        <div class="tit-2-2">
+                            <div class="tit-img">
+                                <div class="border-tit-img-1">Word</div>
+                            </div>
+                            <div class="tit-cont">Quyết định 3802/QĐ-UBND v/v phê duyệt thuyết minh dự án KHCN cấp thành phố DA873</div>
+                            <div class="tit-icon">
+                                <div class="tit-watch">
+                                    <div class="icon-1-tit"><i class="fas fa-eye" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Xem</div>
+                                </div>
+                                <div class="tit-down">
+                                    <div class="icon-1-tit"><i class="fas fa-arrow-circle-down" style="color: #4B5580"></i></div>
+                                    <div class="icon-1-tit-cont">Tải về</div>
+                                </div>
+                            </div>
+                            <div class="tit-user">
+                                <div class="tit-user-one">Nguyễn Anh Tuấn</div>
+                                <div class="tit-user-time">15:02 ngày 10/3/2023</div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="tab-content-infor" id="image-content">
+                    <div class="content-file">
+                        <div class="content-file-b">
+                            <div class="carousel-nav">
+                                <button class="prev">&#10094;</button>
+                                <div class="image-counter"></div>
+                                <button class="next">&#10095;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-file-1">
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <img src="anh4/cau%20doi.jpg" alt="Image 1">
+                                <img src="anh4/DSC_0027.jpg" alt="Image 2">
+                                <img src="anh4/z3927205997615_915fe7224ed9c946315a7da6a635629d.jpg" alt="Image 3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content-infor" id="link-content">
+                    <div class="link-tit">Mục 06: Công trình liên quan</div>
+                    <div class="link-cont">
+                        <div class="link-cont-1">
+                            <div class="stt-link">01</div>
+                            <div class="tit-link-cont">Kênh trước cống Trung Trang</div>
+                            <div class="user-link">
+                                <div class="user-link-1">Nguyễn Anh Tuấn</div>
+                                <div class="user-link-2">15:02 ngày 10/3/2023</div>
+                            </div>
+                        </div>
+                        <div class="link-cont-1">
+                            <div class="stt-link">02</div>
+                            <div class="tit-link-cont">Kênh trục chính sông Đa Độ</div>
+                            <div class="user-link">
+                                <div class="user-link-1">Nguyễn Anh Tuấn</div>
+                                <div class="user-link-2">15:02 ngày 10/3/2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content-infor" id="map-content">
+                    <div class="map-tit">Google My Maps</div>
+                    <div class="map-link" id="map-link"></div>
+                </div>
+                <div class="tab-content-infor" id="shares-content">
+                    <div class="share-search">
+                        <div class="share-search-1">
+                            <input type="search" placeholder="Chia sẻ tới...">
+                        </div>
+                        <div class="share-search-2">
+                            <select class="select-search">
+                                <option>Chỉ xem</option>
+                                <option>Chỉnh sửa</option>
+                            </select>
+                        </div>
+                        <div class="share-search-3">
+                            <button type="submit" class="share-search-butt">Chia sẻ</button>
+                        </div>
+                    </div>
+                    <div class="share-user">
+                        <div class="share-user-1">
+                            <div class="name-share">Danh sách quyền truy cập</div>
+                            <div class="ellipsis-share" id="share-cancel"><i class="fas fa-ellipsis-v" title="Hủy quyền"></i></div>
+                        </div>
+                        <div class="share-user-2">
+                            <table>
+                                <tr style="background-color: white">
+                                    <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                                    <td style="text-align: left">Phạm Thị Ngoan - PTGĐ</td>
+                                    <td>Chỉ xem</td>
+                                    <td style="display:none;" class="delete-user-share"><a class="icon-delete-share"><i class="fas fa-times"></i></a></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                                    <td style="text-align: left">Vũ Thị Thu Trà(KHKT) - PPTP</td>
+                                    <td>Chỉ xem</td>
+                                    <td style="display:none;" class="delete-user-share"><a class="icon-delete-share"><i class="fas fa-times"></i></a></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                                    <td style="text-align: left">Vũ Thị Toán (KHKT) - PP</td>
+                                    <td>Chỉnh sửa</td>
+                                    <td style="display:none;" class="delete-user-share"><a class="icon-delete-share"><i class="fas fa-times"></i></a></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                                    <td style="text-align: left">Nguyễn Thị Minh Thu (KHKT) - PP</td>
+                                    <td>Chỉnh sửa</td>
+                                    <td style="display:none;" class="delete-user-share"><a class="icon-delete-share"><i class="fas fa-times"></i></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content-infor" id="history-content">
+                    <div class="history-cont">
+                        <table>
+                        <tr style="background-color: white; cursor: pointer;" >
+                            <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                            <td style="text-align: left">Nguyễn Anh Tuấn</td>
+                            <td>15:02 ngày 10/3/2023</td>
+                        </tr>
+                        <tr style="background-color: white; cursor: pointer;" >
+                            <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                            <td style="text-align: left">Bùi Thị Phương</td>
+                            <td>15:02 ngày 10/3/2023</td>
+                        </tr>
+                        <tr style="background-color: white; cursor: pointer;" >
+                            <td><img src="anh4/anh-nen-mau-trang-001.jpg"></td>
+                            <td style="text-align: left">Nguyễn Mai Phương</td>
+                            <td>15:02 ngày 10/3/2023</td>
+                        </tr>
+                        </table>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="trang4c1-sidebar.js"></script>
+<script src="trang4c1-tab.js"></script>
+<script src="trang4c1-select-option.js"></script>
+<script src="trang4c1-carousel.js"></script>
+<script src="trang4c1-menu-ellipsis.js"></script>
+<script src="trang4c1-menu-new-mess.js"></script>
+<script src="trang4c1-mess.js"></script>
+<script src="trang4c1-map.js"></script>
+<script src="trang4c1-modal.js"></script>
+</body>
+</html>
